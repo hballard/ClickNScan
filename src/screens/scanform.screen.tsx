@@ -1,39 +1,24 @@
 import React from 'react'
 import {
-  Modal,
-  Picker,
   StyleSheet,
   Text,
-  TouchableOpacity,
   KeyboardAvoidingView,
   View,
-  ScrollView
+  ScrollView,
+  StatusBar
 } from 'react-native'
 import { Icon, Header, FormLabel, FormInput, Card } from 'react-native-elements'
 
-interface State {
-  newItem: string
-  modalVisible: boolean
-}
+import FormPicker from '../components/formpicker.component'
+import theme from '../config/theme.config'
 
-export default class ScanForm extends React.Component<object, State> {
-  constructor(props: object) {
-    super(props)
-    this.state = {
-      newItem: 'No',
-      modalVisible: false
-    }
-  }
-
-  private toggleModal() {
-    this.setState({ modalVisible: !this.state.modalVisible })
-  }
-
+export default class ScanForm extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <StatusBar barStyle="light-content" />
         <Header
-          backgroundColor="teal"
+          backgroundColor={theme.colors.primary}
           centerComponent={{
             text: 'Barcode Scanner',
             style: styles.header
@@ -60,45 +45,26 @@ export default class ScanForm extends React.Component<object, State> {
                   placeholder="Enter additional order amounts"
                 />
               </View>
-              <TouchableOpacity onPress={() => this.toggleModal()}>
-                <View>
-                  <FormLabel>New Product?</FormLabel>
-                  <FormInput
-                    editable={false}
-                    placeholder={this.state.newItem}
-                    pointerEvents="none"
-                  />
-                </View>
-              </TouchableOpacity>
-              <Modal
-                animationType="slide"
-                transparent={false}
-                visible={this.state.modalVisible}
-              >
-                <Picker
-                  selectedValue={this.state.newItem}
-                  onValueChange={(itemValue, itemIndex) => {
-                    this.setState({ newItem: itemValue })
-                    this.toggleModal()
-                  }}
-                >
-                  <Picker.Item label="No" value="No" />
-                  <Picker.Item label="Yes" value="Yes" />
-                </Picker>
-              </Modal>
+              <View>
+                <FormLabel>New Product?</FormLabel>
+                <FormPicker
+                  items={[
+                    { label: 'No', value: 'No' },
+                    { label: 'Yes', value: 'Yes' }
+                  ]}
+                />
+              </View>
               <View>
                 <FormLabel>Comments</FormLabel>
                 <FormInput placeholder="Enter Comments" />
               </View>
-              <View
-                style={styles.button}
-              >
+              <View style={styles.button}>
                 <Icon
                   reverse
                   raised
                   name="add"
                   size={36}
-                  color="teal"
+                  color="#E10000"
                   onPress={() => console.log('hello from button!')}
                 />
               </View>
@@ -113,12 +79,12 @@ export default class ScanForm extends React.Component<object, State> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#E8E6E8'
+    backgroundColor: theme.colors.secondary
   },
   header: {
     fontWeight: 'bold',
-    color: '#fff',
-    fontSize: 20
+    color: theme.colors.card,
+    fontSize: theme.fontSize.header
   },
   content: {
     paddingTop: 30

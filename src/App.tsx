@@ -1,9 +1,9 @@
 import React from 'react'
 
-import ScanForm from './screens/ScanForm'
+import ScanForm from './screens/scanform.screen'
 
 export default class App extends React.Component {
-  public render() {
+  render() {
     return (
       <ScanForm />
     )
