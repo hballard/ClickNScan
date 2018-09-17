@@ -1,12 +1,15 @@
 const theme = {
   colors: {
-    primary: '#E10000',
+    primary: '#DF1E25',
     secondary: '#E8E6E8',
     accent: '#fff',
-    card: '#fff'
+    darkAccent: '#7C7D7E',
+    card: '#fff',
+    inactive: '#CDCDCD'
   },
   fontSize: {
-    header: 20
+    header: 20,
+    footer: 14
   }
 }
 

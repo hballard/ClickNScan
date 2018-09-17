@@ -7,29 +7,28 @@ import {
   ScrollView,
   StatusBar
 } from 'react-native'
-import { Icon, Header, FormLabel, FormInput, Card } from 'react-native-elements'
+import { Icon, FormLabel, FormInput, Card } from 'react-native-elements'
+import { NavigationTabScreenOptions } from 'react-navigation'
 
 import FormPicker from '../components/formpicker.component'
 import theme from '../config/theme.config'
 
 export default class ScanForm extends React.Component {
+
+  static navigationOptions: NavigationTabScreenOptions = {
+    title: 'Scan & Count',
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <StatusBar barStyle="light-content" />
-        <Header
-          backgroundColor={theme.colors.primary}
-          centerComponent={{
-            text: 'Barcode Scanner',
-            style: styles.header
-          }}
-        />
         <ScrollView style={styles.content}>
           <KeyboardAvoidingView enabled behavior="position">
             <Card>
               <View>
                 <FormLabel>Barcode</FormLabel>
-                <FormInput placeholder="Enter barcode" />
+                <FormInput placeholder="Enter barcode or scan" />
               </View>
               <View>
                 <FormLabel>Count Qty</FormLabel>
@@ -81,13 +80,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: theme.colors.secondary
   },
-  header: {
-    fontWeight: 'bold',
-    color: theme.colors.card,
-    fontSize: theme.fontSize.header
-  },
   content: {
-    paddingTop: 30
+    paddingTop: 20
   },
   button: {
     flex: 1,
