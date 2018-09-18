@@ -1,5 +1,6 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, FlatList } from 'react-native'
+import { ListItem, List } from 'react-native-elements'
 import { NavigationTabScreenOptions } from 'react-navigation'
 
 import theme from '../config/theme.config'

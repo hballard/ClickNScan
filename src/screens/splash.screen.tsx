@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View, Image, StatusBar } from 'react-native'
+import { StyleSheet, View, Image, StatusBar } from 'react-native'
 import {
   NavigationStackScreenOptions,
   NavigationScreenProps,
@@ -23,7 +23,7 @@ export default class Splash extends React.Component<NavigationScreenProps> {
   }
 
   componentDidMount() {
-    setTimeout(() => this.splashResetNavigation(), 3000)
+    setTimeout(this.splashResetNavigation.bind(this), 3000)
   }
 
   render() {

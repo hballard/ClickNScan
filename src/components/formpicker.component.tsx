@@ -1,8 +1,6 @@
 import React from 'react'
 import { Modal, Picker, TouchableOpacity, View } from 'react-native'
-import { FormLabel, FormInput } from 'react-native-elements'
-
-import theme from '../config/theme.config'
+import { FormInput } from 'react-native-elements'
 
 interface DropdownItems {
   label: string
@@ -36,7 +34,7 @@ export default class FormPicker extends React.Component<Props, State> {
   render() {
     return (
       <View>
-        <TouchableOpacity onPress={() => this.toggleModal()}>
+        <TouchableOpacity onPress={this.toggleModal.bind(this)}>
           <FormInput
             editable={false}
             placeholder={this.state.newItem}
@@ -50,7 +48,7 @@ export default class FormPicker extends React.Component<Props, State> {
         >
           <Picker
             selectedValue={this.state.newItem}
-            onValueChange={(itemValue, itemIndex) => {
+            onValueChange={(itemValue) => {
               this.setState({ newItem: itemValue })
               this.toggleModal()
             }}

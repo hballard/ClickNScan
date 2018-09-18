@@ -30,7 +30,7 @@ const FormStack = createBottomTabNavigator(
       }
     },
     navigationOptions: (props: NavigationScreenProps) => ({
-      tabBarIcon: ({ focused, tintColor }) => {
+      tabBarIcon: ({ tintColor }) => {
         const { routeName } = props.navigation.state
         let iconName = ''
         if (routeName === 'FormInput') {
@@ -48,11 +48,11 @@ export default createStackNavigator(
   {
     Form: {
       screen: FormStack,
-      navigationOptions: (props: NavigationScreenProps) => {
+      navigationOptions: () => {
         return {
-          headerTitle: props => {
+          headerTitle: (headerProps: any) => {
             return (
-              <View style={props.style}>
+              <View style={headerProps.style}>
                 <Image
                   style={{ width: 175, height: 28.6 }}
                   source={require('./assets/images/clicknscan-logo.png')}

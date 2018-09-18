@@ -1,7 +1,6 @@
 import React from 'react'
 import {
   StyleSheet,
-  Text,
   KeyboardAvoidingView,
   View,
   ScrollView,
@@ -81,7 +80,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.secondary
   },
   content: {
-    paddingTop: 20
+    paddingTop: 25
   },
   button: {
     flex: 1,
