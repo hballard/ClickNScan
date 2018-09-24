@@ -1,20 +1,17 @@
 import { AsyncStorage } from 'react-native'
 
-export enum NewProduct {
+export enum NewProductPicker {
   No = 'No',
   Yes = 'Yes'
 }
 
-export interface BinParams {
+export interface Bin {
+  readonly id: number
   barcode: string
   countQty: number
-  newProduct: NewProduct
-  additionalQty?: number
-  comments?: string
-}
-
-export interface Bin extends BinParams {
-  readonly id: number
+  newProduct: NewProductPicker
+  additionalQty: number
+  comments: string
   createdDate: string
   updatedDate: string
 }
@@ -73,11 +70,15 @@ export class Session {
     }
   }
 
-  addNewBin(bin: BinParams): Bin {
+  createNewBin() {
     const createdDate = Date()
     const newBin = {
-      ...bin,
       id: this.binCounter++,
+      barcode: '',
+      countQty: 0,
+      newProduct: NewProductPicker.No,
+      additionalQty: 0,
+      comments: '',
       createdDate,
       updatedDate: createdDate
     }
@@ -121,7 +122,7 @@ export class Session {
   }
 }
 
-export class SessionManager {
+export default class SessionManager {
   sessionCounter: number = 1
   sessions: SessionIndex[] = []
 
@@ -147,9 +148,9 @@ export class SessionManager {
     AsyncStorage.getItem(`@Session:${id}`)
       .then(
         result =>
-          result ? JSON.parse(result) : console.log('No bin result returned')
+          result ? JSON.parse(result) : console.log('No session result returned')
       )
-      .then(result => new Session(result))
+      .then((result: SessionState) => new Session(result))
       .catch(e => console.log(e))
   }
 
@@ -157,9 +158,8 @@ export class SessionManager {
     AsyncStorage.setItem(`@Session:${s.id}`, JSON.stringify(s.toJson()))
   }
 
-  // TODO: add "mergeItem" flow logic into an is existing key
-  // saveBin(s: Session, b: BinParams) {
-  // }
+  // TODO: add "mergeItem" flow logic; will probably need to convert storage
+  // array into an indexable object or Map
 
   deleteSession(id: number) {
     AsyncStorage.removeItem(`@Session:${id}`)
