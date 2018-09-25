@@ -8,9 +8,9 @@ export enum NewProductPicker {
 export interface Bin {
   readonly id: number
   barcode: string
-  countQty: number
+  countQty: string
   newProduct: NewProductPicker
-  additionalQty: number
+  additionalQty: string
   comments: string
   createdDate: string
   updatedDate: string
@@ -75,9 +75,9 @@ export class Session {
     const newBin = {
       id: this.binCounter++,
       barcode: '',
-      countQty: 0,
+      countQty: '',
       newProduct: NewProductPicker.No,
-      additionalQty: 0,
+      additionalQty: '',
       comments: '',
       createdDate,
       updatedDate: createdDate

@@ -8,18 +8,25 @@ import SessionManager, {
 
 export default class BinCountStore {
   sessionManager: SessionManager
+
   @observable
   sessionList: SessionIndex[]
+
   @observable
-  activeSession: Session | undefined
+  activeSession: Session
+
   @observable
-  activeBin: Bin | undefined
+  activeBin: Bin
 
   constructor() {
     this.sessionManager = new SessionManager()
     this.sessionList = this.sessionManager.sessions
 
     this.activeSession = this.sessionManager.newSession()
+    this.activeBin = this.activeSession.createNewBin()
+  }
+
+  createNewActiveBin() {
     this.activeBin = this.activeSession.createNewBin()
   }
 }
