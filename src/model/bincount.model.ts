@@ -167,6 +167,10 @@ export default class SessionManager {
       .catch(e => console.log(e))
   }
 
+  deleteAllSessions() {
+    AsyncStorage.clear()
+  }
+
   saveSessionManager() {
     AsyncStorage.setItem(
       '@SessionManager',

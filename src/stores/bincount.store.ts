@@ -24,6 +24,8 @@ export default class BinCountStore {
 
     this.activeSession = this.sessionManager.newSession()
     this.activeBin = this.activeSession.createNewBin()
+
+    this.createNewActiveBin = this.createNewActiveBin.bind(this)
   }
 
   createNewActiveBin() {
