@@ -35,6 +35,8 @@ export interface SessionState extends SessionIndex {
   bins: Bin[]
 }
 
+  // TODO: compose SessionManager inside of Session class and changes methods to
+  // reflect that.  Will present a simpler API to use in app.
 export interface SessionManagerState {
   sessionCounter: number
   sessions: SessionIndex[]
@@ -122,6 +124,7 @@ export class Session {
   }
 }
 
+  // TODO: convert Promises to async / await method syntax
 export default class SessionManager {
   sessionCounter: number = 1
   sessions: SessionIndex[] = []
