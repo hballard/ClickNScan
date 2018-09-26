@@ -1,7 +1,6 @@
 import React from 'react'
 import { Modal, Picker, TouchableOpacity, View } from 'react-native'
 import { FormInput } from 'react-native-elements'
-import { inject, observer } from 'mobx-react'
 
 import { Store } from '../stores'
 import { NewProductPicker } from '../model/bincount.model'
@@ -15,20 +14,21 @@ interface Props {
   items: DropdownItems[]
   initialModalVisible?: boolean
   stores: Store
+  value: string
+  onSelect: (param: string) => void
 }
 
 interface State {
   modalVisible: boolean
 }
 
-@inject('stores')
-@observer
 export default class FormPicker extends React.Component<Props, State> {
+  state: State = {
+    modalVisible: this.props.initialModalVisible || false
+  }
+    
   constructor(props: Props) {
     super(props)
-    this.state = {
-      modalVisible: this.props.initialModalVisible || false
-    }
   }
 
   private toggleModal() {
@@ -36,13 +36,12 @@ export default class FormPicker extends React.Component<Props, State> {
   }
 
   render() {
-    const { activeBin } = this.props.stores.binCount
     return (
       <View>
         <TouchableOpacity onPress={this.toggleModal.bind(this)}>
           <FormInput
             editable={false}
-            placeholder={activeBin.newProduct}
+            placeholder={this.props.value}
             pointerEvents="none"
           />
         </TouchableOpacity>
@@ -52,9 +51,9 @@ export default class FormPicker extends React.Component<Props, State> {
           visible={this.state.modalVisible}
         >
           <Picker
-            selectedValue={activeBin.newProduct}
+            selectedValue={this.props.value}
             onValueChange={itemValue => {
-              activeBin.newProduct = itemValue
+              this.props.onSelect(itemValue)
               this.toggleModal()
             }}
           >

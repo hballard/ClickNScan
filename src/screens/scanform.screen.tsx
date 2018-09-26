@@ -69,6 +69,8 @@ export default class ScanForm extends React.Component<Props, {}> {
               <View>
                 <FormLabel>New Product?</FormLabel>
                 <FormPicker
+                  value={activeBin.newProduct}
+                  onSelect= {(text: string) => activeBin.newProduct = text}
                   items={[
                     { label: NewProductPicker.No, value: NewProductPicker.No },
                     { label: NewProductPicker.Yes, value: NewProductPicker.Yes }
