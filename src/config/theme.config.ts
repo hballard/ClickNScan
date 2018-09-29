@@ -1,3 +1,6 @@
+// TODO: Refactor theme object to be in Store and submitted to components
+// via the Provider
+
 const theme = {
   colors: {
     primary: '#DF1E25',

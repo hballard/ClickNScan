@@ -14,8 +14,8 @@ interface Props {
   items: DropdownItems[]
   initialModalVisible?: boolean
   stores: Store
-  value: string
-  onSelect: (param: string) => void
+  value: NewProductPicker
+  onSelect: (param: NewProductPicker) => void
 }
 
 interface State {
@@ -26,7 +26,7 @@ export default class FormPicker extends React.Component<Props, State> {
   state: State = {
     modalVisible: this.props.initialModalVisible || false
   }
-    
+
   constructor(props: Props) {
     super(props)
   }

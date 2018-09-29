@@ -31,7 +31,12 @@ export default class ScanForm extends React.Component<Props, {}> {
   }
 
   render() {
-    const { activeBin, activeSession, sessionManager, createNewActiveBin } = this.props.stores.binCount
+    const {
+      activeBin,
+      activeSession,
+      sessionManager,
+      createNewActiveBin
+    } = this.props.stores.binCount
     return (
       <View style={styles.container}>
         <StatusBar barStyle="light-content" />
@@ -43,7 +48,7 @@ export default class ScanForm extends React.Component<Props, {}> {
                 <FormInput
                   placeholder="Enter barcode or scan"
                   value={activeBin.barcode}
-                  onChangeText={(text: string) => (activeBin.barcode = text)}
+                  onChangeText={this.props.stores.binCount.setBarcode}
                 />
               </View>
               <View>
@@ -52,7 +57,7 @@ export default class ScanForm extends React.Component<Props, {}> {
                   keyboardType="number-pad"
                   placeholder="Enter bin count"
                   value={activeBin.countQty}
-                  onChangeText={(text: string) => (activeBin.countQty = text)}
+                  onChangeText={this.props.stores.binCount.setCountQty}
                 />
               </View>
               <View>
@@ -61,16 +66,14 @@ export default class ScanForm extends React.Component<Props, {}> {
                   keyboardType="number-pad"
                   placeholder="Enter additional order amounts"
                   value={activeBin.additionalQty}
-                  onChangeText={(text: string) =>
-                    (activeBin.additionalQty = text)
-                  }
+                  onChangeText={this.props.stores.binCount.setAdditionalQty}
                 />
               </View>
               <View>
                 <FormLabel>New Product?</FormLabel>
                 <FormPicker
                   value={activeBin.newProduct}
-                  onSelect= {(text: string) => activeBin.newProduct = text}
+                  onSelect={this.props.stores.binCount.setNewProduct}
                   items={[
                     { label: NewProductPicker.No, value: NewProductPicker.No },
                     { label: NewProductPicker.Yes, value: NewProductPicker.Yes }
@@ -82,7 +85,7 @@ export default class ScanForm extends React.Component<Props, {}> {
                 <FormInput
                   placeholder="Enter Comments"
                   value={activeBin.comments}
-                  onChangeText={(text: string) => (activeBin.comments = text)}
+                  onChangeText={this.props.stores.binCount.setComments}
                 />
               </View>
               <View style={styles.button}>

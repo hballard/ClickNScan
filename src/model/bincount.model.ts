@@ -9,7 +9,7 @@ export interface Bin {
   readonly id: number
   barcode: string
   countQty: string
-  newProduct: string
+  newProduct: NewProductPicker
   additionalQty: string
   comments: string
   createdDate: string
