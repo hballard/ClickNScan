@@ -1,6 +1,7 @@
 import React from 'react'
 import { Modal, Picker, TouchableOpacity, View } from 'react-native'
 import { FormInput } from 'react-native-elements'
+import { observer } from 'mobx-react'
 
 import { IStores } from '../stores'
 import { NewProductPicker } from '../model/bincount.model'
@@ -22,6 +23,7 @@ interface IFormPickerState {
   modalVisible: boolean
 }
 
+@observer
 export default class FormPicker extends React.Component<
   IFormPickerProps,
   IFormPickerState
