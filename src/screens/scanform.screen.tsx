@@ -33,8 +33,6 @@ export default class ScanForm extends React.Component<IScanFormProps, {}> {
   render() {
     const {
       activeBin,
-      activeSession,
-      sessionManager,
       createNewActiveBin
     } = this.props.stores.binCount
     return (
@@ -95,11 +93,7 @@ export default class ScanForm extends React.Component<IScanFormProps, {}> {
                   name="add"
                   size={36}
                   color="#E10000"
-                  onPress={() => {
-                    activeSession.updateBin(activeBin)
-                    sessionManager.saveSession(activeSession)
-                    createNewActiveBin()
-                  }}
+                  onPress={createNewActiveBin}
                 />
               </View>
             </Card>

@@ -11,10 +11,10 @@ export default class BinCountStore {
   sessionManager: SessionManager
 
   @observable
-  sessionList: ISessionIndex[]
+  activeSession: Session
 
   @observable
-  activeSession: Session
+  sessionList: ISessionIndex[]
 
   @observable
   activeBin: IBin
@@ -26,7 +26,7 @@ export default class BinCountStore {
     this.activeSession = this.sessionManager.newSession()
     this.activeBin = this.activeSession.createNewBin()
 
-    // Bind methods to "this"
+    // Bind methods to "this" in current context
     this.createNewActiveBin = this.createNewActiveBin.bind(this)
     this.setBarcode = this.setBarcode.bind(this)
     this.setCountQty = this.setCountQty.bind(this)
@@ -35,7 +35,10 @@ export default class BinCountStore {
     this.setNewProduct = this.setNewProduct.bind(this)
   }
 
+  @action
   createNewActiveBin() {
+    this.activeSession.updateBin(this.activeBin)
+    this.sessionManager.saveSession(this.activeSession)
     this.activeBin = this.activeSession.createNewBin()
   }
 

@@ -35,8 +35,8 @@ export interface ISessionState extends ISessionIndex {
   bins: IBin[]
 }
 
-  // TODO: compose SessionManager inside of Session class and changes methods to
-  // reflect that.  Will present a simpler API to use in app.
+// TODO: compose SessionManager inside of Session class and changes methods to
+// reflect that.  Will present a simpler API to use in app.
 export interface ISessionManagerState {
   sessionCounter: number
   sessions: ISessionIndex[]
@@ -107,6 +107,7 @@ export class Session {
     return bin.id
   }
 
+  // TODO: change this method to use Array.find method
   getBin(id: number) {
         return this.bins.filter((el: IBin) => el.id === id)[0]
   }
@@ -124,7 +125,9 @@ export class Session {
   }
 }
 
-  // TODO: convert Promises to async / await method syntax
+// TODO: convert Promises to async / await method syntax
+// TODO: make class a more 'generic' db session manager class that could be
+// used by other store classes; move db class to different module at that point
 export default class SessionManager {
   sessionCounter: number = 1
   sessions: ISessionIndex[] = []
@@ -163,7 +166,6 @@ export default class SessionManager {
 
   // TODO: add "mergeItem" flow logic; will probably need to convert storage
   // array into an indexable object or Map
-
   deleteSession(id: number) {
     AsyncStorage.removeItem(`@Session:${id}`)
       .then(() => (this.sessions = this.sessions.filter(el => el.id !== id)))
