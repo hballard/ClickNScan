@@ -2,7 +2,7 @@ import React from 'react'
 import { Modal, Picker, TouchableOpacity, View } from 'react-native'
 import { FormInput } from 'react-native-elements'
 
-import { IStore } from '../stores'
+import { IStores } from '../stores'
 import { NewProductPicker } from '../model/bincount.model'
 
 interface IDropdownItems {
@@ -13,7 +13,7 @@ interface IDropdownItems {
 interface IFormPickerProps {
   items: IDropdownItems[]
   initialModalVisible?: boolean
-  stores: IStore
+  stores: IStores
   value: NewProductPicker
   onSelect: (param: NewProductPicker) => void
 }

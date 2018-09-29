@@ -2,7 +2,7 @@ import BinCountStore from './bincount.store'
 
 const binCount = new BinCountStore()
 
-export interface IStore {
+export interface IStores {
   binCount: BinCountStore
 }
 
