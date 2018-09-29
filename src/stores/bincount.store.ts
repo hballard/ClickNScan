@@ -1,9 +1,9 @@
 import { observable, action } from 'mobx'
 
 import SessionManager, {
-  Bin,
+  IBin,
   Session,
-  SessionIndex,
+  ISessionIndex,
   NewProductPicker
 } from '../model/bincount.model'
 
@@ -11,13 +11,13 @@ export default class BinCountStore {
   sessionManager: SessionManager
 
   @observable
-  sessionList: SessionIndex[]
+  sessionList: ISessionIndex[]
 
   @observable
   activeSession: Session
 
   @observable
-  activeBin: Bin
+  activeBin: IBin
 
   constructor() {
     this.sessionManager = new SessionManager()

@@ -13,19 +13,19 @@ import {
 } from 'react-navigation'
 import { inject, observer } from 'mobx-react'
 
-import { Store } from '../stores'
+import { IStore } from '../stores'
 import { NewProductPicker } from '../model/bincount.model'
 import FormPicker from '../components/formpicker.component'
 import theme from '../config/theme.config'
 
-interface Props {
+interface IScanFormProps {
   navigation: NavigationScreenProp<{}>
-  stores: Store
+  stores: IStore
 }
 
 @inject('stores')
 @observer
-export default class ScanForm extends React.Component<Props, {}> {
+export default class ScanForm extends React.Component<IScanFormProps, {}> {
   static navigationOptions: NavigationTabScreenOptions = {
     title: 'Scan & Count'
   }

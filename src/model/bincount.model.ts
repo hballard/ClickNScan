@@ -5,7 +5,7 @@ export enum NewProductPicker {
   Yes = 'Yes'
 }
 
-export interface Bin {
+export interface IBin {
   readonly id: number
   barcode: string
   countQty: string
@@ -16,30 +16,30 @@ export interface Bin {
   updatedDate: string
 }
 
-export interface NewSessionInitializer {
+export interface INewSessionInitializer {
   kind: 'newSession'
   readonly id: number
   name?: string
 }
 
-export interface SessionIndex {
+export interface ISessionIndex {
   readonly id: number
   name: string
 }
 
-export interface SessionState extends SessionIndex {
+export interface ISessionState extends ISessionIndex {
   kind: 'sessionState'
   createdDate: string
   updatedDate: string
   binCounter: number
-  bins: Bin[]
+  bins: IBin[]
 }
 
   // TODO: compose SessionManager inside of Session class and changes methods to
   // reflect that.  Will present a simpler API to use in app.
-export interface SessionManagerState {
+export interface ISessionManagerState {
   sessionCounter: number
-  sessions: SessionIndex[]
+  sessions: ISessionIndex[]
 }
 
 export class Session {
@@ -48,9 +48,9 @@ export class Session {
   name: string
   createdDate: string
   updatedDate: string
-  bins: Bin[] = []
+  bins: IBin[] = []
 
-  constructor(initializer: SessionState | NewSessionInitializer) {
+  constructor(initializer: ISessionState | INewSessionInitializer) {
     switch (initializer.kind) {
       case 'sessionState':
         this.id = initializer.id
@@ -89,13 +89,13 @@ export class Session {
   }
 
   deleteBin(id: number) {
-    this.bins = this.bins.filter((el: Bin) => el.id !== id)
+    this.bins = this.bins.filter((el: IBin) => el.id !== id)
     this.updatedDate = Date()
     return id
   }
 
-  updateBin(bin: Bin) {
-    this.bins = this.bins.map((el: Bin) => {
+  updateBin(bin: IBin) {
+    this.bins = this.bins.map((el: IBin) => {
       if (el.id === bin.id) {
         bin.updatedDate = Date()
         return bin
@@ -108,10 +108,10 @@ export class Session {
   }
 
   getBin(id: number) {
-        return this.bins.filter((el: Bin) => el.id === id)[0]
+        return this.bins.filter((el: IBin) => el.id === id)[0]
   }
 
-  toJson(): SessionState {
+  toJson(): ISessionState {
     return {
       kind: 'sessionState',
       id: this.id,
@@ -127,13 +127,13 @@ export class Session {
   // TODO: convert Promises to async / await method syntax
 export default class SessionManager {
   sessionCounter: number = 1
-  sessions: SessionIndex[] = []
+  sessions: ISessionIndex[] = []
 
   constructor() {
     AsyncStorage.getItem('@SessionManager')
     .then(result => {
       if (result) {
-        const savedSessionState: SessionManagerState = JSON.parse(result)
+        const savedSessionState: ISessionManagerState = JSON.parse(result)
         this.sessionCounter = savedSessionState.sessionCounter
         this.sessions = savedSessionState.sessions
       }
@@ -153,7 +153,7 @@ export default class SessionManager {
         result =>
           result ? JSON.parse(result) : console.log('No session result returned')
       )
-      .then((result: SessionState) => new Session(result))
+      .then((result: ISessionState) => new Session(result))
       .catch(e => console.log(e))
   }
 

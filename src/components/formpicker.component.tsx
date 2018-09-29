@@ -2,32 +2,35 @@ import React from 'react'
 import { Modal, Picker, TouchableOpacity, View } from 'react-native'
 import { FormInput } from 'react-native-elements'
 
-import { Store } from '../stores'
+import { IStore } from '../stores'
 import { NewProductPicker } from '../model/bincount.model'
 
-interface DropdownItems {
+interface IDropdownItems {
   label: NewProductPicker
   value: NewProductPicker
 }
 
-interface Props {
-  items: DropdownItems[]
+interface IFormPickerProps {
+  items: IDropdownItems[]
   initialModalVisible?: boolean
-  stores: Store
+  stores: IStore
   value: NewProductPicker
   onSelect: (param: NewProductPicker) => void
 }
 
-interface State {
+interface IFormPickerState {
   modalVisible: boolean
 }
 
-export default class FormPicker extends React.Component<Props, State> {
-  state: State = {
+export default class FormPicker extends React.Component<
+  IFormPickerProps,
+  IFormPickerState
+> {
+  state: IFormPickerState = {
     modalVisible: this.props.initialModalVisible || false
   }
 
-  constructor(props: Props) {
+  constructor(props: IFormPickerProps) {
     super(props)
   }
 
