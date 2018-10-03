@@ -109,7 +109,7 @@ export class Session {
 
   // TODO: change this method to use Array.find method
   getBin(id: number) {
-        return this.bins.filter((el: IBin) => el.id === id)[0]
+    return this.bins.filter((el: IBin) => el.id === id)[0]
   }
 
   toJson(): ISessionState {
@@ -125,22 +125,25 @@ export class Session {
   }
 }
 
-// TODO: convert Promises to async / await method syntax
 // TODO: make class a more 'generic' db session manager class that could be
 // used by other store classes; move db class to different module at that point
 export default class SessionManager {
   sessionCounter: number = 1
   sessions: ISessionIndex[] = []
 
-  constructor() {
-    AsyncStorage.getItem('@SessionManager')
-    .then(result => {
-      if (result) {
+  async init() {
+    try {
+      const result = await AsyncStorage.getItem('@SessionManager')
+      if (result !== null) {
         const savedSessionState: ISessionManagerState = JSON.parse(result)
         this.sessionCounter = savedSessionState.sessionCounter
         this.sessions = savedSessionState.sessions
+      } else {
+        console.log('No SessionManager object returned')
       }
-    }).catch(e => console.log(e))
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   newSession() {
@@ -150,39 +153,53 @@ export default class SessionManager {
     return newSession
   }
 
-  loadSession(id: number): Session | void {
-    AsyncStorage.getItem(`@Session:${id}`)
-      .then(
-        result =>
-          result ? JSON.parse(result) : console.log('No session result returned')
-      )
-      .then((result: ISessionState) => new Session(result))
-      .catch(e => console.log(e))
+  async loadSession(id: number): Promise<Session | void> {
+    try {
+      const result = await AsyncStorage.getItem(`@Session:${id}`)
+      if (result !== null) {
+        return new Session(JSON.parse(result))
+      } else {
+        console.log('No session result returned')
+      }
+    } catch (e) {
+      console.log(e)
+    }
   }
 
-  saveSession(s: Session) {
-    AsyncStorage.setItem(`@Session:${s.id}`, JSON.stringify(s.toJson()))
+  async saveSession(s: Session) {
+    try {
+      await AsyncStorage.setItem(`@Session:${s.id}`, JSON.stringify(s.toJson()))
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   // TODO: add "mergeItem" flow logic; will probably need to convert storage
   // array into an indexable object or Map
-  deleteSession(id: number) {
-    AsyncStorage.removeItem(`@Session:${id}`)
-      .then(() => (this.sessions = this.sessions.filter(el => el.id !== id)))
-      .catch(e => console.log(e))
+  async deleteSession(id: number) {
+    try {
+      await AsyncStorage.removeItem(`@Session:${id}`)
+      this.sessions = this.sessions.filter(el => el.id !== id)
+    } catch (e) {
+      console.log(e)
+    }
   }
 
-  deleteAllSessions() {
-    AsyncStorage.clear()
+  async deleteAllSessions() {
+    await AsyncStorage.clear()
   }
 
-  saveSessionManager() {
-    AsyncStorage.setItem(
-      '@SessionManager',
-      JSON.stringify({
-        sessionCounter: this.sessionCounter,
-        sessions: this.sessions
-      })
-    )
+  async saveSessionManager() {
+    try {
+      await AsyncStorage.setItem(
+        '@SessionManager',
+        JSON.stringify({
+          sessionCounter: this.sessionCounter,
+          sessions: this.sessions
+        })
+      )
+    } catch (e) {
+      console.log(e)
+    }
   }
 }
