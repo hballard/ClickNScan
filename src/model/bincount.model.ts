@@ -9,7 +9,7 @@ export interface IBin {
   readonly id: number
   barcode: string
   countQty: string
-  newProduct: NewProductPicker
+  newProduct: NewProductPicker.No | NewProductPicker.Yes
   additionalQty: string
   comments: string
   createdDate: string

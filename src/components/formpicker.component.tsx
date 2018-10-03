@@ -7,16 +7,16 @@ import { IStores } from '../stores'
 import { NewProductPicker } from '../model/bincount.model'
 
 interface IDropdownItems {
-  label: NewProductPicker
-  value: NewProductPicker
+  label: NewProductPicker.No | NewProductPicker.Yes
+  value: NewProductPicker.No | NewProductPicker.Yes
 }
 
 interface IFormPickerProps {
   items: IDropdownItems[]
   initialModalVisible?: boolean
   stores: IStores
-  value: NewProductPicker
-  onSelect: (param: NewProductPicker) => void
+  value: NewProductPicker.No | NewProductPicker.Yes
+  onSelect: (param: NewProductPicker.No | NewProductPicker.Yes) => void
 }
 
 interface IFormPickerState {

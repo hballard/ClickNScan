@@ -40,6 +40,7 @@ export default class BinCountStore {
     this.activeSession.updateBin(this.activeBin)
     this.sessionManager.saveSession(this.activeSession)
     this.activeBin = this.activeSession.createNewBin()
+    console.log(this)
   }
 
   @action
@@ -63,7 +64,7 @@ export default class BinCountStore {
   }
 
   @action
-  setNewProduct(text: NewProductPicker) {
+  setNewProduct(text: NewProductPicker.No | NewProductPicker.Yes) {
     this.activeBin.newProduct = text
   }
 }

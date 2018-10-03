@@ -31,10 +31,7 @@ export default class ScanForm extends React.Component<IScanFormProps, {}> {
   }
 
   render() {
-    const {
-      activeBin,
-      createNewActiveBin
-    } = this.props.stores.binCount
+    const { activeBin, createNewActiveBin } = this.props.stores.binCount
     return (
       <View style={styles.container}>
         <StatusBar barStyle="light-content" />

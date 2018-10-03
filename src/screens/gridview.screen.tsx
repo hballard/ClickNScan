@@ -1,31 +1,44 @@
 import React from 'react'
+import { View, StyleSheet, FlatList } from 'react-native'
 import {
-  View,
-  StyleSheet
-  // FlatList
-} from 'react-native'
-// import { ListItem, List } from 'react-native-elements'
-import { NavigationTabScreenOptions } from 'react-navigation'
+  NavigationTabScreenOptions,
+  NavigationScreenProp,
+  withNavigationFocus
+} from 'react-navigation'
 import { observer, inject } from 'mobx-react'
 
 import theme from '../config/theme.config'
 import ListCard from '../components/listcard.component'
+import { IStores } from '../stores'
+import { IBin } from '../model/bincount.model'
+
+interface IGridViewProps {
+  navigation: NavigationScreenProp<{}>
+  stores: IStores
+}
 
 @inject('stores')
 @observer
-export default class GridView extends React.Component {
+class GridView extends React.Component<IGridViewProps, {}> {
   static navigationOptions: NavigationTabScreenOptions = {
     title: 'View Records'
   }
 
   render() {
+    const { bins } = this.props.stores.binCount.activeSession
     return (
       <View style={styles.container}>
-        <ListCard />
+        <FlatList
+          data={bins.slice(0,-1)}
+          keyExtractor={(item: IBin) => JSON.stringify(item.id)}
+          renderItem={({ item }) => <ListCard binData={item} />}
+        />
       </View>
     )
   }
 }
+
+export default withNavigationFocus(GridView)
 
 const styles = StyleSheet.create({
   container: {
@@ -33,5 +46,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: theme.colors.secondary
+  },
+  list: {
+    flex: 1
   }
 })
