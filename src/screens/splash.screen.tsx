@@ -17,13 +17,13 @@ export default class Splash extends React.Component<NavigationScreenProps> {
   splashResetNavigation() {
     const resetAction = StackActions.reset({
       index: 0,
-      actions: [NavigationActions.navigate({ routeName: 'Form' })]
+      actions: [NavigationActions.navigate({ routeName: 'MainMenu' })]
     })
     this.props.navigation.dispatch(resetAction)
   }
 
   componentDidMount() {
-    setTimeout(this.splashResetNavigation.bind(this), 3000)
+    setTimeout(this.splashResetNavigation.bind(this), 2000)
   }
 
   render() {

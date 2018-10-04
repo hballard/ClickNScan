@@ -11,6 +11,7 @@ import ScanForm from './screens/scanform.screen'
 import SplashScreen from './screens/splash.screen'
 import GridView from './screens/gridview.screen'
 import theme from './config/theme.config'
+import MainMenu from './screens/mainmenu.screen'
 
 const FormNavigator = createBottomTabNavigator(
   {
@@ -46,6 +47,28 @@ const FormNavigator = createBottomTabNavigator(
 
 export default createStackNavigator(
   {
+    MainMenu: {
+      screen: MainMenu,
+      navigationOptions: () => {
+        return {
+          headerTitle: (headerProps: any) => {
+            return (
+              <View style={headerProps.style}>
+                <Image
+                  style={{ width: 175, height: 28.6 }}
+                  source={require('./assets/images/clicknscan-logo.png')}
+                />
+              </View>
+            )
+          },
+          headerTitleStyle: {
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center'
+          }
+        }
+      }
+    },
     Form: {
       screen: FormNavigator,
       navigationOptions: () => {

@@ -26,6 +26,7 @@ export default class BinCountStore {
     this.activeBin = this.activeSession.createNewBin()
 
     // Bind methods to "this" in current context
+    this.createNewActiveSession = this.createNewActiveSession.bind(this)
     this.createNewActiveBin = this.createNewActiveBin.bind(this)
     this.setBarcode = this.setBarcode.bind(this)
     this.setCountQty = this.setCountQty.bind(this)
@@ -38,11 +39,15 @@ export default class BinCountStore {
     try {
       await this.sessionManager.init()
       this.sessionList = this.sessionManager.sessions
-      this.activeSession = this.sessionManager.newSession()
-      this.activeBin = this.activeSession.createNewBin()
     } catch (e) {
       console.log(e)
     }
+  }
+
+  @action
+  createNewActiveSession() {
+    this.activeSession = this.sessionManager.newSession()
+    this.activeBin = this.activeSession.createNewBin()
   }
 
   @action
@@ -50,7 +55,7 @@ export default class BinCountStore {
     this.activeSession.updateBin(this.activeBin)
     this.sessionManager.saveSession(this.activeSession)
     this.activeBin = this.activeSession.createNewBin()
-    // this.sessionManager.saveSessionManager()
+    this.sessionManager.saveSessionManager()
     console.log(this)
   }
 

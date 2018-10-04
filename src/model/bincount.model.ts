@@ -68,7 +68,7 @@ export class Session {
         this.updatedDate = createdDate
         this.name =
           initializer.name ||
-          `Session ${initializer.id} created on ${createdDate}`
+          `File ${initializer.id}`
     }
   }
 
