@@ -1,31 +1,28 @@
-import { observable, action } from 'mobx'
+import { observable, action } from 'mobx' 
 
 import SessionManager, {
   IBin,
   Session,
-  ISessionIndex,
   NewProductPicker
 } from '../model/bincount.model'
 
 export default class BinCountStore {
+  @observable
   sessionManager: SessionManager
 
   @observable
   activeSession: Session
 
   @observable
-  sessionList: ISessionIndex[]
-
-  @observable
   activeBin: IBin
 
   constructor() {
     this.sessionManager = new SessionManager()
-    this.sessionList = this.sessionManager.sessions
     this.activeSession = this.sessionManager.newSession()
     this.activeBin = this.activeSession.createNewBin()
 
     // Bind methods to "this" in current context
+    this.init = this.init.bind(this)
     this.createNewActiveSession = this.createNewActiveSession.bind(this)
     this.createNewActiveBin = this.createNewActiveBin.bind(this)
     this.setBarcode = this.setBarcode.bind(this)
@@ -38,7 +35,6 @@ export default class BinCountStore {
   async init() {
     try {
       await this.sessionManager.init()
-      this.sessionList = this.sessionManager.sessions
     } catch (e) {
       console.log(e)
     }
@@ -48,15 +44,17 @@ export default class BinCountStore {
   createNewActiveSession() {
     this.activeSession = this.sessionManager.newSession()
     this.activeBin = this.activeSession.createNewBin()
+    console.log(this)
   }
 
   @action
   createNewActiveBin() {
+    if (this.activeBin.id === 1) {
+    this.sessionManager.saveSessionManager()
+    }
     this.activeSession.updateBin(this.activeBin)
     this.sessionManager.saveSession(this.activeSession)
     this.activeBin = this.activeSession.createNewBin()
-    this.sessionManager.saveSessionManager()
-    console.log(this)
   }
 
   @action

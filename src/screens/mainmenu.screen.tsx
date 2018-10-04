@@ -18,12 +18,13 @@ interface IMainMenuProps {
 class MainMenu extends React.Component<IMainMenuProps, {}> {
   render() {
     const { navigate } = this.props.navigation
-    const { sessionList, createNewActiveSession } = this.props.stores.binCount
+    const { createNewActiveSession } = this.props.stores.binCount
+    const { sessions} = this.props.stores.binCount.sessionManager
     return (
       <View style={styles.container}>
         <StatusBar barStyle="light-content" />
         <View style={styles.menuIconsContainer}>
-          {sessionList.map(item => {
+          {sessions.map(item => {
             return (
               <FileItem
                 key={JSON.stringify(item.id)}
