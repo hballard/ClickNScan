@@ -1,5 +1,11 @@
 import React from 'react'
-import { View, StyleSheet, StatusBar, ScrollView } from 'react-native'
+import {
+  View,
+  StyleSheet,
+  StatusBar,
+  ScrollView,
+  Dimensions
+} from 'react-native'
 import { Icon } from 'react-native-elements'
 import { NavigationScreenProp, withNavigationFocus } from 'react-navigation'
 import { inject, observer } from 'mobx-react'
@@ -26,6 +32,19 @@ class MainMenu extends React.Component<IMainMenuProps, {}> {
     return (
       <View style={styles.container}>
         <StatusBar barStyle="light-content" />
+        <View style={styles.buttonContainer}>
+          <Icon
+            reverse
+            raised
+            name="add"
+            size={36}
+            color={theme.colors.primary}
+            onPress={() => {
+              createNewActiveSession()
+              navigate('Form')
+            }}
+          />
+        </View>
         <View>
           <ScrollView>
             <View style={styles.menuIconsContainer}>
@@ -44,19 +63,6 @@ class MainMenu extends React.Component<IMainMenuProps, {}> {
               })}
             </View>
           </ScrollView>
-            <View style={styles.buttonContainer}>
-              <Icon
-                reverse
-                raised
-                name="add"
-                size={36}
-                color={theme.colors.primary}
-                onPress={() => {
-                  createNewActiveSession()
-                  navigate('Form')
-                }}
-              />
-            </View>
         </View>
       </View>
     )
@@ -67,20 +73,21 @@ export default withNavigationFocus(MainMenu)
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: 'flex-start',
+    padding: 10,
     backgroundColor: theme.colors.secondary
   },
   menuIconsContainer: {
-    flex: 3,
     flexWrap: 'wrap',
     flexDirection: 'row',
-    marginTop: 20,
-    paddingLeft: 30
+    justifyContent: 'flex-start',
+    alignItems: 'center'
   },
   buttonContainer: {
-    height: 90,
-    margin: 10,
+    position: 'absolute',
+    bottom: 13,
+    right: Dimensions.get('window').width / 2.63,
+    zIndex: 1,
+
   }
 })

@@ -63,9 +63,9 @@ export class Session {
 
       default:
         this.id = initializer.id
-        const createdDate = Date()
-        this.createdDate = createdDate
-        this.updatedDate = createdDate
+        const date = new Date()
+        this.createdDate = `${date.toDateString()} ${date.toTimeString()}`
+        this.updatedDate = this.createdDate
         this.name =
           initializer.name ||
           `File ${initializer.id}`
@@ -73,7 +73,8 @@ export class Session {
   }
 
   createNewBin() {
-    const createdDate = Date()
+    const date = new Date()
+    const createdDate = `${date.toDateString()} ${date.toTimeString()}`
     const newBin = {
       id: this.binCounter++,
       barcode: '',
@@ -90,20 +91,22 @@ export class Session {
 
   deleteBin(id: number) {
     this.bins = this.bins.filter((el: IBin) => el.id !== id)
-    this.updatedDate = Date()
+    const date = new Date()
+    this.updatedDate = `${date.toDateString()} ${date.toTimeString()}`
     return id
   }
 
   updateBin(bin: IBin) {
+    const date = new Date()
     this.bins = this.bins.map((el: IBin) => {
       if (el.id === bin.id) {
-        bin.updatedDate = Date()
+        bin.updatedDate = `${date.toDateString()} ${date.toTimeString()}`
         return bin
       } else {
         return el
       }
     })
-    this.updatedDate = Date()
+    this.updatedDate = `${date.toDateString()} ${date.toTimeString()}`
     return bin.id
   }
 
