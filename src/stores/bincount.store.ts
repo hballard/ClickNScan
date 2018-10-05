@@ -10,7 +10,6 @@ export default class BinCountStore {
   @observable
   sessionManager: SessionManager
 
-  // TODO: Figure out what to do here so the types check properly
   @observable
   activeSession!: Session
 

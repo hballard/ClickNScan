@@ -19,18 +19,19 @@ export default class FileItem extends React.Component<IFileItemProps, {}> {
     return (
       <View key={this.props.id} style={styles.container}>
         <Text style={styles.titleText}>{`File ${this.props.id}`}</Text>
-          <Icon
-            underlayColor={theme.colors.secondary}
-            name="file-text"
-            type="font-awesome"
-            size={90}
-            color={theme.colors.accent}
-            onPress={() => {
-              if (onClick) {
-                onClick(this.props.id)
-              }
-            }}
-          />
+        <Icon
+          underlayColor={theme.colors.secondary}
+          name="file-text"
+          type="font-awesome"
+          size={90}
+          color={theme.colors.accent}
+          containerStyle={styles.iconContainer}
+          onPress={() => {
+            if (onClick) {
+              onClick(this.props.id)
+            }
+          }}
+        />
       </View>
     )
   }
@@ -40,8 +41,11 @@ const styles = StyleSheet.create({
   container: {
     fontSize: 25,
     alignItems: 'center',
-    marginRight: 37,
-    marginBottom: 30
+    margin: 20
+  },
+  iconContainer: {
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start'
   },
   titleText: {
     marginBottom: 10
