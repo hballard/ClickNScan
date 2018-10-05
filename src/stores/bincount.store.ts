@@ -1,4 +1,4 @@
-import { observable, action } from 'mobx' 
+import { observable, action } from 'mobx'
 
 import SessionManager, {
   IBin,
@@ -10,21 +10,21 @@ export default class BinCountStore {
   @observable
   sessionManager: SessionManager
 
+  // TODO: Figure out what to do here so the types check properly
   @observable
-  activeSession: Session
+  activeSession!: Session
 
   @observable
-  activeBin: IBin
+  activeBin!: IBin
 
   constructor() {
     this.sessionManager = new SessionManager()
-    this.activeSession = this.sessionManager.newSession()
-    this.activeBin = this.activeSession.createNewBin()
 
     // Bind methods to "this" in current context
     this.init = this.init.bind(this)
     this.createNewActiveSession = this.createNewActiveSession.bind(this)
     this.createNewActiveBin = this.createNewActiveBin.bind(this)
+    this.loadNewActiveSession = this.loadNewActiveSession.bind(this)
     this.setBarcode = this.setBarcode.bind(this)
     this.setCountQty = this.setCountQty.bind(this)
     this.setAdditionalQty = this.setAdditionalQty.bind(this)
@@ -43,15 +43,28 @@ export default class BinCountStore {
   @action
   createNewActiveSession() {
     this.activeSession = this.sessionManager.newSession()
+    this.sessionManager.saveSessionManager()
+    this.sessionManager.saveSession(this.activeSession)
     this.activeBin = this.activeSession.createNewBin()
     console.log(this)
   }
 
   @action
-  createNewActiveBin() {
-    if (this.activeBin.id === 1) {
-    this.sessionManager.saveSessionManager()
+  async loadNewActiveSession(id: number) {
+    try {
+      const result = await this.sessionManager.loadSession(id)
+      if (result) {
+        console.log(result)
+        this.activeSession = result
+        this.activeBin = this.activeSession.createNewBin()
+      }
+    } catch (e) {
+      console.log(e)
     }
+  }
+
+  @action
+  createNewActiveBin() {
     this.activeSession.updateBin(this.activeBin)
     this.sessionManager.saveSession(this.activeSession)
     this.activeBin = this.activeSession.createNewBin()

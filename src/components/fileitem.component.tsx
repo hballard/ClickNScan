@@ -9,16 +9,28 @@ interface IFileItemProps {
   key?: string
   id: number
   name?: string
-  onClick?: () => void
+  onClick?: (id: number) => void
 }
 
 @observer
 export default class FileItem extends React.Component<IFileItemProps, {}> {
   render() {
+    const { onClick } = this.props
     return (
       <View key={this.props.id} style={styles.container}>
         <Text style={styles.titleText}>{`File ${this.props.id}`}</Text>
-        <Icon name="file-text" type="font-awesome" size={90} color={theme.colors.accent} />
+          <Icon
+            underlayColor={theme.colors.secondary}
+            name="file-text"
+            type="font-awesome"
+            size={90}
+            color={theme.colors.accent}
+            onPress={() => {
+              if (onClick) {
+                onClick(this.props.id)
+              }
+            }}
+          />
       </View>
     )
   }
