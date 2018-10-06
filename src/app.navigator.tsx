@@ -83,6 +83,14 @@ export default createStackNavigator(
               </View>
             )
           },
+          headerRight: (
+            <Icon
+              name="email"
+              color={theme.colors.accent}
+              size={35}
+              containerStyle={{ marginRight: 10 }}
+            />
+          ),
           headerTitleStyle: {
             flex: 1,
             justifyContent: 'center',

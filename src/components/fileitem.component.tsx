@@ -9,6 +9,7 @@ interface IFileItemProps {
   key?: string
   id: number
   name?: string
+  createdDate?: string
   onClick?: (id: number) => void
 }
 
@@ -18,7 +19,7 @@ export default class FileItem extends React.Component<IFileItemProps, {}> {
     const { onClick } = this.props
     return (
       <View key={this.props.id} style={styles.container}>
-        <Text style={styles.titleText}>{`File ${this.props.id}`}</Text>
+        <Text style={styles.titleText}>{this.props.name}</Text>
         <Icon
           underlayColor={theme.colors.secondary}
           name="file-text"
@@ -49,5 +50,6 @@ const styles = StyleSheet.create({
   },
   titleText: {
     marginBottom: 10
-  }
+  },
+  footerText: {}
 })

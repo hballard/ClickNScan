@@ -1,5 +1,12 @@
 import React from 'react'
-import { Modal, Picker, TouchableOpacity, View } from 'react-native'
+import {
+  Modal,
+  Picker,
+  TouchableOpacity,
+  View,
+  StyleSheet,
+  TouchableWithoutFeedback
+} from 'react-native'
 import { FormInput } from 'react-native-elements'
 import { observer } from 'mobx-react'
 
@@ -34,6 +41,8 @@ export default class FormPicker extends React.Component<
 
   constructor(props: IFormPickerProps) {
     super(props)
+
+    this.toggleModal = this.toggleModal.bind(this)
   }
 
   private toggleModal() {
@@ -51,29 +60,48 @@ export default class FormPicker extends React.Component<
           />
         </TouchableOpacity>
         <Modal
+          transparent={true}
           animationType="slide"
-          transparent={false}
           visible={this.state.modalVisible}
         >
-          <Picker
-            selectedValue={this.props.value}
-            onValueChange={itemValue => {
-              this.props.onSelect(itemValue)
-              this.toggleModal()
-            }}
-          >
-            {this.props.items.map(item => {
-              return (
-                <Picker.Item
-                  key={item.label}
-                  label={item.label}
-                  value={item.value}
-                />
-              )
-            })}
-          </Picker>
+          <TouchableWithoutFeedback onPress={this.toggleModal}>
+            <View style={styles.modalBackground} />
+          </TouchableWithoutFeedback>
+          <View style={styles.modalForeground}>
+            <Picker
+              selectedValue={this.props.value}
+              onValueChange={itemValue => {
+                this.props.onSelect(itemValue)
+                this.toggleModal()
+              }}
+            >
+              {this.props.items.map(item => {
+                return (
+                  <Picker.Item
+                    key={item.label}
+                    label={item.label}
+                    value={item.value}
+                  />
+                )
+              })}
+            </Picker>
+          </View>
         </Modal>
       </View>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  modalBackground: {
+    flex: 2,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    backgroundColor: '#00000080'
+  },
+  modalForeground: {
+    flex: 1,
+    backgroundColor: '#fff',
+    padding: 20
+  }
+})

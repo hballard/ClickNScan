@@ -33,9 +33,10 @@ export default class BinCountStore {
 
   async init() {
     try {
+      await this.sessionManager.deleteAllSessions() // Delete this line
       await this.sessionManager.init()
     } catch (e) {
-      console.log(e)
+      console.log(e) // Delete this line
     }
   }
 
@@ -45,7 +46,7 @@ export default class BinCountStore {
     this.sessionManager.saveSessionManager()
     this.sessionManager.saveSession(this.activeSession)
     this.activeBin = this.activeSession.createNewBin()
-    console.log(this)
+    console.log(this) // Delete this line
   }
 
   @action

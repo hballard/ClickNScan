@@ -53,6 +53,7 @@ class MainMenu extends React.Component<IMainMenuProps, {}> {
                   <FileItem
                     key={JSON.stringify(item.id)}
                     name={item.name}
+                    createdDate={item.createdDate}
                     id={item.id}
                     onClick={async (id: number) => {
                       await loadNewActiveSession(id)
@@ -81,7 +82,6 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    alignItems: 'center'
   },
   buttonContainer: {
     position: 'absolute',

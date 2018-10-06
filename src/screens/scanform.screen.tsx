@@ -35,7 +35,7 @@ export default class ScanForm extends React.Component<IScanFormProps, {}> {
     return (
       <View style={styles.container}>
         <StatusBar barStyle="light-content" />
-        <ScrollView style={styles.content}>
+        <ScrollView style={styles.scrollView}>
           <KeyboardAvoidingView enabled behavior="position">
             <Card>
               <View>
@@ -83,7 +83,14 @@ export default class ScanForm extends React.Component<IScanFormProps, {}> {
                   onChangeText={this.props.stores.binCount.setComments}
                 />
               </View>
-              <View style={styles.button}>
+              <View style={styles.buttonContainer}>
+                <Icon 
+                  name="trash"
+                  type="foundation"
+                  size={60}
+                  color={theme.colors.darkAccent}
+                  iconStyle={{marginTop: 20, marginLeft: 10}}
+                />
                 <Icon
                   reverse
                   raised
@@ -106,13 +113,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: theme.colors.secondary
   },
-  content: {
+  scrollView: {
     paddingTop: 25
   },
-  button: {
+  buttonContainer: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     height: 90,
     padding: 10
   }

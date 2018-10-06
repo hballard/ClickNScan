@@ -25,6 +25,7 @@ export interface INewSessionInitializer {
 export interface ISessionIndex {
   readonly id: number
   name: string
+  createdDate: string
 }
 
 export interface ISessionState extends ISessionIndex {
@@ -64,17 +65,19 @@ export class Session {
       default:
         this.id = initializer.id
         const date = new Date()
-        this.createdDate = `${date.toDateString()} ${date.toTimeString()}`
+        this.createdDate = `${date.toDateString()} ${
+          date.toTimeString().split(' ')[0]
+        }`
         this.updatedDate = this.createdDate
-        this.name =
-          initializer.name ||
-          `File ${initializer.id}`
+        this.name = initializer.name || `File ${initializer.id}`
     }
   }
 
   createNewBin() {
     const date = new Date()
-    const createdDate = `${date.toDateString()} ${date.toTimeString()}`
+    const createdDate = `${date.toDateString()} ${
+      date.toTimeString().split(' ')[0]
+    }`
     const newBin = {
       id: this.binCounter++,
       barcode: '',
@@ -92,7 +95,9 @@ export class Session {
   deleteBin(id: number) {
     this.bins = this.bins.filter((el: IBin) => el.id !== id)
     const date = new Date()
-    this.updatedDate = `${date.toDateString()} ${date.toTimeString()}`
+    this.updatedDate = `${date.toDateString()} ${
+      date.toTimeString().split(' ')[0]
+    }`
     return id
   }
 
@@ -100,13 +105,17 @@ export class Session {
     const date = new Date()
     this.bins = this.bins.map((el: IBin) => {
       if (el.id === bin.id) {
-        bin.updatedDate = `${date.toDateString()} ${date.toTimeString()}`
+        bin.updatedDate = `${date.toDateString()} ${
+          date.toTimeString().split(' ')[0]
+        }`
         return bin
       } else {
         return el
       }
     })
-    this.updatedDate = `${date.toDateString()} ${date.toTimeString()}`
+    this.updatedDate = `${date.toDateString()} ${
+      date.toTimeString().split(' ')[0]
+    }`
     return bin.id
   }
 
@@ -152,7 +161,11 @@ export default class SessionManager {
   newSession() {
     const id = this.sessionCounter++
     const newSession = new Session({ kind: 'newSession', id })
-    this.sessions.push({ id: newSession.id, name: newSession.name })
+    this.sessions.push({
+      id: newSession.id,
+      name: newSession.name,
+      createdDate: newSession.createdDate
+    })
     return newSession
   }
 
