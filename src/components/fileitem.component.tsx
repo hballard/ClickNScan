@@ -1,7 +1,7 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import { observer } from 'mobx-react'
-import { Icon } from 'react-native-elements'
+import { Icon, Text } from 'react-native-elements'
 
 import theme from '../config/theme.config'
 

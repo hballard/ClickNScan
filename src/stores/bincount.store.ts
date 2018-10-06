@@ -71,6 +71,12 @@ export default class BinCountStore {
   }
 
   @action
+  loadNewActiveBin(id: number) {
+    const bin = this.activeSession.getBin(id)
+    this.activeBin = bin
+  }
+
+  @action
   setBarcode(text: string) {
     this.activeBin.barcode = text
   }

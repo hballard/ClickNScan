@@ -29,9 +29,22 @@ class GridView extends React.Component<IGridViewProps, {}> {
     return (
       <View style={styles.container}>
         <FlatList
-          data={bins.slice(0,-1)}
+          data={bins.slice(0, -1)}
           keyExtractor={(item: IBin) => JSON.stringify(item.id)}
-          renderItem={({ item }) => <ListCard binData={item} />}
+          renderItem={({ item }) => (
+            <ListCard
+              binData={item}
+              borderStyle={
+                this.props.stores.binCount.activeBin.id === item.id
+                  ? { borderWidth: 1, borderColor: theme.colors.primary }
+                  : {}
+              }
+              onPress={(id: number) => {
+                this.props.stores.binCount.loadNewActiveBin(id)
+                this.props.navigation.navigate('FormInput')
+              }}
+            />
+          )}
         />
       </View>
     )

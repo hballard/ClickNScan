@@ -31,7 +31,11 @@ export default class ScanForm extends React.Component<IScanFormProps, {}> {
   }
 
   render() {
-    const { activeBin, createNewActiveBin } = this.props.stores.binCount
+    const {
+      activeBin,
+      createNewActiveBin,
+      activeSession
+    } = this.props.stores.binCount
     return (
       <View style={styles.container}>
         <StatusBar barStyle="light-content" />
@@ -84,19 +88,23 @@ export default class ScanForm extends React.Component<IScanFormProps, {}> {
                 />
               </View>
               <View style={styles.buttonContainer}>
-                <Icon 
+                <Icon
                   name="trash"
                   type="foundation"
                   size={60}
-                  color={theme.colors.darkAccent}
-                  iconStyle={{marginTop: 20, marginLeft: 10}}
+                  color={
+                    activeBin.id === activeSession.bins.slice(-1)[0].id
+                      ? theme.colors.secondary
+                      : theme.colors.darkAccent
+                  }
+                  iconStyle={{ marginTop: 20, marginLeft: 10 }}
                 />
                 <Icon
                   reverse
                   raised
                   name="add"
                   size={36}
-                  color="#E10000"
+                  color={theme.colors.primary}
                   onPress={createNewActiveBin}
                 />
               </View>
