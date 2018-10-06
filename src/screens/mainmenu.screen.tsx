@@ -55,7 +55,7 @@ class MainMenu extends React.Component<IMainMenuProps, {}> {
                     name={item.name}
                     createdDate={item.createdDate}
                     id={item.id}
-                    onClick={async (id: number) => {
+                    onPress={async (id: number) => {
                       await loadNewActiveSession(id)
                       navigate('Form')
                     }}

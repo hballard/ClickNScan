@@ -4,19 +4,38 @@ import { observer } from 'mobx-react'
 import { Icon, Text } from 'react-native-elements'
 
 import theme from '../config/theme.config'
+import PartialModal from './partialmodal.component'
 
 interface IFileItemProps {
   key?: string
   id: number
   name?: string
   createdDate?: string
-  onClick?: (id: number) => void
+  onPress?: (id: number) => void
+  initialModalVisible: boolean
+}
+
+interface IFileItemState {
+  modalVisible: boolean
 }
 
 @observer
 export default class FileItem extends React.Component<IFileItemProps, {}> {
+  state: IFileItemState = {
+    modalVisible: this.props.initialModalVisible || false
+  }
+
+  constructor(props: IFileItemProps) {
+    super(props)
+
+    this.toggleModal = this.toggleModal.bind(this)
+  }
+
+  private toggleModal() {
+    this.setState({ modalVisible: !this.state.modalVisible })
+  }
   render() {
-    const { onClick } = this.props
+    const { onPress } = this.props
     return (
       <View key={this.props.id} style={styles.container}>
         <Text style={styles.titleText}>{this.props.name}</Text>
@@ -28,10 +47,15 @@ export default class FileItem extends React.Component<IFileItemProps, {}> {
           color={theme.colors.accent}
           containerStyle={styles.iconContainer}
           onPress={() => {
-            if (onClick) {
-              onClick(this.props.id)
+            if (onPress) {
+              onPress(this.props.id)
             }
           }}
+          onLongPress={this.toggleModal}
+        />
+        <PartialModal
+          modalVisible={this.state.modalVisible}
+          toggleModal={this.toggleModal}
         />
       </View>
     )
@@ -51,5 +75,5 @@ const styles = StyleSheet.create({
   titleText: {
     marginBottom: 10
   },
-  footerText: {}
+  footerText: {},
 })
