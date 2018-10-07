@@ -64,18 +64,21 @@ export default class FileItem extends React.Component<IFileItemProps, {}> {
         >
           <List containerStyle={styles.listContainer}>
             <ListItem
-              leftIcon={{ name: 'edit', type: 'material' }}
+              leftIcon={{ name: 'edit', type: 'material', color: theme.colors.darkAccent }}
               title="Rename"
+              titleStyle={{color: theme.colors.darkAccent}}
               hideChevron
             />
             <ListItem
-              leftIcon={{ name: 'share', type: 'material' }}
+              leftIcon={{ name: 'share', type: 'material', color: theme.colors.darkAccent }}
               title="Share"
+              titleStyle={{color: theme.colors.darkAccent}}
               hideChevron
             />
             <ListItem
-              leftIcon={{ name: 'delete', type: 'material' }}
+              leftIcon={{ name: 'delete', type: 'material', color: theme.colors.darkAccent }}
               title="Delete"
+              titleStyle={{color: theme.colors.darkAccent}}
               hideChevron
             />
           </List>

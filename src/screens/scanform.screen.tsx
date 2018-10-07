@@ -43,25 +43,29 @@ export default class ScanForm extends React.Component<IScanFormProps, {}> {
           <KeyboardAvoidingView enabled behavior="position">
             <Card>
               <View>
-                <FormLabel>Barcode</FormLabel>
+                <FormLabel labelStyle={{ color: theme.colors.darkAccent }}>
+                  Barcode
+                </FormLabel>
                 <View style={styles.barcodeContainer}>
                   <FormInput
                     placeholder="Enter barcode or scan"
                     value={activeBin.barcode}
                     onChangeText={this.props.stores.binCount.setBarcode}
-                    containerStyle={{flex: 3}}
+                    containerStyle={{ flex: 3 }}
                   />
                   <Icon
                     name="barcode-scan"
                     type="material-community"
                     size={40}
                     color={theme.colors.darkAccent}
-                    containerStyle={{flex: 1}}
+                    containerStyle={{ flex: 1 }}
                   />
                 </View>
               </View>
               <View>
-                <FormLabel>Count Qty</FormLabel>
+                <FormLabel labelStyle={{ color: theme.colors.darkAccent }}>
+                  Count Qty
+                </FormLabel>
                 <FormInput
                   keyboardType="number-pad"
                   placeholder="Enter bin count"
@@ -70,7 +74,9 @@ export default class ScanForm extends React.Component<IScanFormProps, {}> {
                 />
               </View>
               <View>
-                <FormLabel>Additional Qty</FormLabel>
+                <FormLabel labelStyle={{ color: theme.colors.darkAccent }}>
+                  Additional Qty
+                </FormLabel>
                 <FormInput
                   keyboardType="number-pad"
                   placeholder="Enter additional order amounts"
@@ -79,7 +85,9 @@ export default class ScanForm extends React.Component<IScanFormProps, {}> {
                 />
               </View>
               <View>
-                <FormLabel>New Product?</FormLabel>
+                <FormLabel labelStyle={{ color: theme.colors.darkAccent }}>
+                  New Product?
+                </FormLabel>
                 <FormPicker
                   value={activeBin.newProduct}
                   onSelect={this.props.stores.binCount.setNewProduct}
@@ -90,7 +98,9 @@ export default class ScanForm extends React.Component<IScanFormProps, {}> {
                 />
               </View>
               <View>
-                <FormLabel>Comments</FormLabel>
+                <FormLabel labelStyle={{ color: theme.colors.darkAccent }}>
+                  Comments
+                </FormLabel>
                 <FormInput
                   placeholder="Enter Comments"
                   value={activeBin.comments}
