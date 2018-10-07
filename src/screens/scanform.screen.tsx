@@ -88,17 +88,39 @@ export default class ScanForm extends React.Component<IScanFormProps, {}> {
                 />
               </View>
               <View style={styles.buttonContainer}>
-                <Icon
-                  name="trash"
-                  type="foundation"
-                  size={60}
-                  color={
-                    activeBin.id === activeSession.bins.slice(-1)[0].id
-                      ? theme.colors.secondary
-                      : theme.colors.darkAccent
-                  }
-                  iconStyle={{ marginTop: 20, marginLeft: 10 }}
-                />
+                <View style={styles.iconContainer}>
+                  <Icon
+                    name="delete"
+                    type="material"
+                    size={40}
+                    color={
+                      activeBin.id === activeSession.bins.slice(-1)[0].id
+                        ? theme.colors.secondary
+                        : theme.colors.darkAccent
+                    }
+                  />
+                  <Icon
+                    name="save"
+                    type="material"
+                    size={40}
+                    color={
+                      activeBin.id === activeSession.bins.slice(-1)[0].id
+                        ? theme.colors.secondary
+                        : theme.colors.darkAccent
+                    }
+                  />
+                  <Icon
+                    name="barcode"
+                    type="material-community"
+                    size={40}
+                    containerStyle={{marginLeft: 6, marginTop: 41}}
+                    color={
+                      activeBin.id === activeSession.bins.slice(-1)[0].id
+                        ? theme.colors.secondary
+                        : theme.colors.darkAccent
+                    }
+                  />
+                </View>
                 <Icon
                   reverse
                   raised
@@ -124,11 +146,17 @@ const styles = StyleSheet.create({
   scrollView: {
     paddingTop: 25
   },
+  iconContainer: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    marginLeft: 15,
+  },
   buttonContainer: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
     height: 90,
-    padding: 10
+    paddingTop: 10,
+    paddingRight: 10
   }
 })

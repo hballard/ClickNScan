@@ -135,6 +135,10 @@ export class Session {
       bins: this.bins
     }
   }
+
+  toCsv(): string {
+  return "I'm a CSV file"
+  }
 }
 
 // TODO: make class a more 'generic' db session manager class that could be

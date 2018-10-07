@@ -2,6 +2,8 @@ import React from 'react'
 import { View, StyleSheet, TouchableWithoutFeedback, Modal } from 'react-native'
 import { observer } from 'mobx-react'
 
+import theme from '../config/theme.config'
+
 interface IPartialModalProps {
   modalVisible: boolean
   toggleModal: () => void
@@ -12,7 +14,6 @@ export default class PartialModal extends React.Component<
   IPartialModalProps,
   {}
 > {
-
   render() {
     return (
       <Modal
@@ -31,14 +32,12 @@ export default class PartialModal extends React.Component<
 
 const styles = StyleSheet.create({
   modalBackground: {
-    flex: 2,
+    flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
-    backgroundColor: '#00000080'
+    backgroundColor: theme.colors.modalBkgrdColor
   },
   modalForeground: {
-    flex: 1,
-    backgroundColor: '#fff',
-    padding: 20
+    backgroundColor: theme.colors.accent,
   }
 })

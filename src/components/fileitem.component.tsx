@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import { observer } from 'mobx-react'
-import { Icon, Text } from 'react-native-elements'
+import { Icon, Text, List, ListItem } from 'react-native-elements'
 
 import theme from '../config/theme.config'
 import PartialModal from './partialmodal.component'
@@ -56,7 +56,25 @@ export default class FileItem extends React.Component<IFileItemProps, {}> {
         <PartialModal
           modalVisible={this.state.modalVisible}
           toggleModal={this.toggleModal}
-        />
+        >
+          <List containerStyle={styles.listContainer}>
+            <ListItem
+              leftIcon={{ name: 'edit', type: 'material' }}
+              title="Rename"
+              hideChevron
+            />
+            <ListItem
+              leftIcon={{ name: 'share', type: 'material' }}
+              title="Share"
+              hideChevron
+            />
+            <ListItem
+              leftIcon={{ name: 'delete', type: 'material' }}
+              title="Delete"
+              hideChevron
+            />
+          </List>
+        </PartialModal>
       </View>
     )
   }
@@ -76,4 +94,9 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   footerText: {},
+  listContainer: {
+    marginTop: 3,
+    borderTopWidth: 0,
+    paddingLeft: 5,
+  }
 })

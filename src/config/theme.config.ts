@@ -8,7 +8,8 @@ const theme = {
     accent: '#fff',
     darkAccent: '#7C7D7E',
     card: '#fff',
-    inactive: '#CDCDCD'
+    inactive: '#CDCDCD',
+    modalBkgrdColor: '#00000080'
   },
   fontSize: {
     header: 20,
