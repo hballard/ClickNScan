@@ -61,7 +61,6 @@ export default class FileItem extends React.Component<IFileItemProps, {}> {
         <PartialModal
           modalVisible={this.state.modalVisible}
           toggleModal={this.toggleModal}
-          floating
         >
           <List containerStyle={styles.listContainer}>
             <ListItem
