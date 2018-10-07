@@ -1,4 +1,5 @@
 import { AsyncStorage } from 'react-native'
+import { getCurrentDateTime } from '../util/functions.util'
 
 export enum NewProductPicker {
   No = 'No',
@@ -64,20 +65,14 @@ export class Session {
 
       default:
         this.id = initializer.id
-        const date = new Date()
-        this.createdDate = `${date.toDateString()} ${
-          date.toTimeString().split(' ')[0]
-        }`
+        this.createdDate = getCurrentDateTime()
         this.updatedDate = this.createdDate
         this.name = initializer.name || `File ${initializer.id}`
     }
   }
 
   createNewBin() {
-    const date = new Date()
-    const createdDate = `${date.toDateString()} ${
-      date.toTimeString().split(' ')[0]
-    }`
+    const createdDate = getCurrentDateTime()
     const newBin = {
       id: this.binCounter++,
       barcode: '',
@@ -94,28 +89,20 @@ export class Session {
 
   deleteBin(id: number) {
     this.bins = this.bins.filter((el: IBin) => el.id !== id)
-    const date = new Date()
-    this.updatedDate = `${date.toDateString()} ${
-      date.toTimeString().split(' ')[0]
-    }`
+    this.updatedDate = getCurrentDateTime()
     return id
   }
 
   updateBin(bin: IBin) {
-    const date = new Date()
     this.bins = this.bins.map((el: IBin) => {
       if (el.id === bin.id) {
-        bin.updatedDate = `${date.toDateString()} ${
-          date.toTimeString().split(' ')[0]
-        }`
+        this.updatedDate = getCurrentDateTime()
         return bin
       } else {
         return el
       }
     })
-    this.updatedDate = `${date.toDateString()} ${
-      date.toTimeString().split(' ')[0]
-    }`
+    this.updatedDate = getCurrentDateTime()
     return bin.id
   }
 
@@ -137,7 +124,7 @@ export class Session {
   }
 
   toCsv(): string {
-  return "I'm a CSV file"
+    return "I'm a CSV file"
   }
 }
 

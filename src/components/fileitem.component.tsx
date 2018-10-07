@@ -53,6 +53,12 @@ export default class FileItem extends React.Component<IFileItemProps, {}> {
           }}
           onLongPress={this.toggleModal}
         />
+        <Text style={StyleSheet.flatten([styles.footerText, {marginTop: 8}])}>
+          {this.props.createdDate ? this.props.createdDate.split(' ')[0] : ''}
+        </Text>
+        <Text style={StyleSheet.flatten([styles.footerText, {marginTop: 3}])}>
+          {this.props.createdDate ? this.props.createdDate.split(' ')[1] : ''}
+        </Text>
         <PartialModal
           modalVisible={this.state.modalVisible}
           toggleModal={this.toggleModal}
@@ -91,12 +97,16 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start'
   },
   titleText: {
+    color: theme.colors.darkAccent,
     marginBottom: 10
   },
-  footerText: {},
+  footerText: {
+    color: theme.colors.primary,
+    fontSize: theme.fontSize.fileIconFooter
+  },
   listContainer: {
     marginTop: 3,
     borderTopWidth: 0,
-    paddingLeft: 5,
+    paddingLeft: 5
   }
 })

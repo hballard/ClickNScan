@@ -44,11 +44,21 @@ export default class ScanForm extends React.Component<IScanFormProps, {}> {
             <Card>
               <View>
                 <FormLabel>Barcode</FormLabel>
-                <FormInput
-                  placeholder="Enter barcode or scan"
-                  value={activeBin.barcode}
-                  onChangeText={this.props.stores.binCount.setBarcode}
-                />
+                <View style={styles.barcodeContainer}>
+                  <FormInput
+                    placeholder="Enter barcode or scan"
+                    value={activeBin.barcode}
+                    onChangeText={this.props.stores.binCount.setBarcode}
+                    containerStyle={{flex: 3}}
+                  />
+                  <Icon
+                    name="barcode-scan"
+                    type="material-community"
+                    size={40}
+                    color={theme.colors.darkAccent}
+                    containerStyle={{flex: 1}}
+                  />
+                </View>
               </View>
               <View>
                 <FormLabel>Count Qty</FormLabel>
@@ -113,11 +123,11 @@ export default class ScanForm extends React.Component<IScanFormProps, {}> {
                     name="barcode"
                     type="material-community"
                     size={40}
-                    containerStyle={{marginLeft: 6, marginTop: 41}}
+                    containerStyle={{ marginLeft: 6, marginTop: 41 }}
                     color={
                       activeBin.id === activeSession.bins.slice(-1)[0].id
-                        ? theme.colors.secondary
-                        : theme.colors.darkAccent
+                        ? theme.colors.darkAccent
+                        : theme.colors.primary
                     }
                   />
                 </View>
@@ -146,10 +156,13 @@ const styles = StyleSheet.create({
   scrollView: {
     paddingTop: 25
   },
+  barcodeContainer: {
+    flexDirection: 'row'
+  },
   iconContainer: {
     flexDirection: 'row',
     alignItems: 'flex-end',
-    marginLeft: 15,
+    marginLeft: 15
   },
   buttonContainer: {
     flex: 1,

@@ -13,7 +13,8 @@ const theme = {
   },
   fontSize: {
     header: 20,
-    footer: 14
+    footer: 14,
+    fileIconFooter: 10
   }
 }
 
