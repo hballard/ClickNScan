@@ -15,12 +15,17 @@ interface IListCardProps {
 export default class ListCard extends React.Component<IListCardProps, {}> {
   render() {
     return (
-      <View style={StyleSheet.flatten([styles.container, this.props.borderStyle])}>
+      <View>
         <TouchableOpacity
           activeOpacity={0.8}
           onPress={() => this.props.onPress(this.props.binData.id)}
         >
-          <Card>
+          <Card
+            containerStyle={StyleSheet.flatten([
+              styles.card,
+              this.props.borderStyle
+            ])}
+          >
             <Text>{this.props.binData.id}</Text>
             <Text>{this.props.binData.barcode}</Text>
             <Text>{this.props.binData.countQty}</Text>
@@ -28,7 +33,6 @@ export default class ListCard extends React.Component<IListCardProps, {}> {
             <Text>{this.props.binData.newProduct}</Text>
             <Text>{this.props.binData.comments}</Text>
             <Text>{this.props.binData.createdDate}</Text>
-            <Text>{this.props.binData.updatedDate}</Text>
           </Card>
         </TouchableOpacity>
       </View>
@@ -37,11 +41,5 @@ export default class ListCard extends React.Component<IListCardProps, {}> {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    fontSize: 20,
-    alignContent: 'center',
-    justifyContent: 'center'
-  },
   card: {}
 })

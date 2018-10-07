@@ -56,11 +56,6 @@ export default withNavigationFocus(GridView)
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
     backgroundColor: theme.colors.secondary
   },
-  list: {
-    flex: 1
-  }
 })
