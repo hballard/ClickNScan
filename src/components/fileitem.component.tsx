@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet } from 'react-native' 
 import { observer } from 'mobx-react'
 import { Icon, Text, List, ListItem } from 'react-native-elements'
 
@@ -12,7 +12,6 @@ interface IFileItemProps {
   name?: string
   createdDate?: string
   onPress?: (id: number) => void
-  initialModalVisible: boolean
 }
 
 interface IFileItemState {
@@ -22,7 +21,7 @@ interface IFileItemState {
 @observer
 export default class FileItem extends React.Component<IFileItemProps, {}> {
   state: IFileItemState = {
-    modalVisible: this.props.initialModalVisible || false
+    modalVisible: false
   }
 
   constructor(props: IFileItemProps) {
@@ -62,6 +61,7 @@ export default class FileItem extends React.Component<IFileItemProps, {}> {
         <PartialModal
           modalVisible={this.state.modalVisible}
           toggleModal={this.toggleModal}
+          floating
         >
           <List containerStyle={styles.listContainer}>
             <ListItem
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
   container: {
     fontSize: 25,
     alignItems: 'center',
-    margin: 20
+    margin: 20,
   },
   iconContainer: {
     alignItems: 'flex-start',
