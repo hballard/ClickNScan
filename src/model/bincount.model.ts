@@ -157,6 +157,7 @@ export default class SessionManager {
       name: newSession.name,
       createdDate: newSession.createdDate
     })
+    this.saveSessionManager()
     return newSession
   }
 
@@ -175,7 +176,12 @@ export default class SessionManager {
 
   async saveSession(s: Session) {
     try {
-      await AsyncStorage.setItem(`@Session:${s.id}`, JSON.stringify(s.toJson()))
+      const index = this.sessions.findIndex(el => el.id === s.id)
+      const session = this.sessions[index]
+      session.name = s.name
+      this.sessions.splice(index, 1, session)
+      this.saveSessionManager()
+      AsyncStorage.setItem(`@Session:${s.id}`, JSON.stringify(s.toJson()))
     } catch (e) {
       console.log(e)
     }
@@ -185,8 +191,10 @@ export default class SessionManager {
   // array into an indexable object or Map
   async deleteSession(id: number) {
     try {
-      await AsyncStorage.removeItem(`@Session:${id}`)
-      this.sessions = this.sessions.filter(el => el.id !== id)
+      const index = this.sessions.findIndex(el => el.id === id)
+      this.sessions.splice(index, 1)
+      this.saveSessionManager()
+      AsyncStorage.removeItem(`@Session:${id}`)
     } catch (e) {
       console.log(e)
     }

@@ -26,7 +26,9 @@ class MainMenu extends React.Component<IMainMenuProps, {}> {
     const { navigate } = this.props.navigation
     const {
       createNewActiveSession,
-      loadNewActiveSession
+      loadNewActiveSession,
+      deleteSession,
+      renameSession
     } = this.props.stores.binCount
     const { sessions } = this.props.stores.binCount.sessionManager
     return (
@@ -55,6 +57,14 @@ class MainMenu extends React.Component<IMainMenuProps, {}> {
                     name={item.name}
                     createdDate={item.createdDate}
                     id={item.id}
+                    deleteCallback={async (id: number) => {
+                      await deleteSession(id)
+                      this.forceUpdate()
+                    }}
+                    renameCallback={async (id: number, text: string) => {
+                      await renameSession(id, text)
+                      this.forceUpdate()
+                    }}
                     onPress={async (id: number) => {
                       await loadNewActiveSession(id)
                       navigate('Form')
@@ -81,13 +91,12 @@ const styles = StyleSheet.create({
   menuIconsContainer: {
     flexWrap: 'wrap',
     flexDirection: 'row',
-    justifyContent: 'flex-start',
+    justifyContent: 'flex-start'
   },
   buttonContainer: {
     position: 'absolute',
     bottom: 13,
     right: Dimensions.get('window').width / 2.63,
-    zIndex: 1,
-
+    zIndex: 1
   }
 })
