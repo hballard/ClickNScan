@@ -21,7 +21,7 @@ interface IMainMenuProps {
 
 @inject('stores')
 @observer
-class MainMenu extends React.Component<IMainMenuProps, {}> {
+class MainMenu extends React.Component<IMainMenuProps> {
   render() {
     const { navigate } = this.props.navigation
     const {

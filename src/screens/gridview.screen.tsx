@@ -19,7 +19,7 @@ interface IGridViewProps {
 
 @inject('stores')
 @observer
-class GridView extends React.Component<IGridViewProps, {}> {
+class GridView extends React.Component<IGridViewProps> {
   static navigationOptions: NavigationTabScreenOptions = {
     title: 'View Records'
   }

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Icon, IconProps } from 'react-native-elements'
+import { observer } from 'mobx-react'
 
 import theme from '../config/theme.config'
 
@@ -7,10 +8,8 @@ interface IDisabledIconProps extends IconProps {
   disabled?: boolean
 }
 
-export default class DisabledIcon extends React.Component<
-  IDisabledIconProps,
-  object
-> {
+@observer
+export default class DisabledIcon extends React.Component<IDisabledIconProps> {
   render() {
     const { disabled, color, onPress, onLongPress, ...props } = this.props
     if (disabled) {

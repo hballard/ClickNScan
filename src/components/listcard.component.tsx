@@ -12,7 +12,7 @@ interface IListCardProps {
 }
 
 @observer
-export default class ListCard extends React.Component<IListCardProps, {}> {
+export default class ListCard extends React.Component<IListCardProps> {
   render() {
     return (
       <View>

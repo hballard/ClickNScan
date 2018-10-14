@@ -17,7 +17,7 @@ import { IStores } from '../stores'
 import { NewProductPicker } from '../model/bincount.model'
 import FormPicker from '../components/formpicker.component'
 import theme from '../config/theme.config'
-import DisabledIcon from '../components/disabledicon.component';
+import DisabledIcon from '../components/disabledicon.component'
 
 interface IScanFormProps {
   navigation: NavigationScreenProp<{}>
@@ -26,7 +26,7 @@ interface IScanFormProps {
 
 @inject('stores')
 @observer
-export default class ScanForm extends React.Component<IScanFormProps, {}> {
+export default class ScanForm extends React.Component<IScanFormProps> {
   static navigationOptions: NavigationTabScreenOptions = {
     title: 'Scan & Count'
   }
@@ -116,7 +116,9 @@ export default class ScanForm extends React.Component<IScanFormProps, {}> {
                     size={40}
                     onPress={this.props.stores.binCount.deleteActiveBin}
                     color={theme.colors.darkAccent}
-                    disabled={activeBin.id === activeSession.bins.slice(-1)[0].id}
+                    disabled={
+                      activeBin.id === activeSession.bins.slice(-1)[0].id
+                    }
                   />
                   <DisabledIcon
                     name="save"
@@ -124,7 +126,9 @@ export default class ScanForm extends React.Component<IScanFormProps, {}> {
                     size={40}
                     onPress={this.props.stores.binCount.saveActiveBin}
                     color={theme.colors.darkAccent}
-                    disabled={activeBin.id === activeSession.bins.slice(-1)[0].id}
+                    disabled={
+                      activeBin.id === activeSession.bins.slice(-1)[0].id
+                    }
                   />
                   <Icon
                     name="barcode"

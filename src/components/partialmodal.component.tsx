@@ -17,10 +17,7 @@ interface IPartialModalProps {
 }
 
 @observer
-export default class PartialModal extends React.Component<
-  IPartialModalProps,
-  {}
-> {
+export default class PartialModal extends React.Component<IPartialModalProps> {
   render() {
     return (
       <Modal
@@ -66,6 +63,7 @@ const styles = StyleSheet.create({
   },
   modalForegroundFloating: {
     width: Dimensions.get('window').width * 0.8,
-    alignSelf: 'center'
+    alignSelf: 'center',
+    padding: 10
   }
 })
