@@ -3,12 +3,12 @@ import { Icon, IconProps } from 'react-native-elements'
 
 import theme from '../config/theme.config'
 
-interface IDynamicIconProps extends IconProps {
+interface IDisabledIconProps extends IconProps {
   disabled?: boolean
 }
 
-export default class DynamicIcon extends React.Component<
-  IDynamicIconProps,
+export default class DisabledIcon extends React.Component<
+  IDisabledIconProps,
   object
 > {
   render() {
