@@ -67,7 +67,7 @@ export class Session {
         this.id = initializer.id
         this.createdDate = getCurrentDateTime()
         this.updatedDate = this.createdDate
-        this.name = initializer.name || `File ${initializer.id}`
+        this.name = initializer.name || `New File`
     }
   }
 
@@ -88,20 +88,15 @@ export class Session {
   }
 
   deleteBin(id: number) {
-    this.bins = this.bins.filter((el: IBin) => el.id !== id)
+    const index = this.bins.findIndex(el => el.id === id)
+    this.bins.splice(index, 1)
     this.updatedDate = getCurrentDateTime()
     return id
   }
 
   updateBin(bin: IBin) {
-    this.bins = this.bins.map((el: IBin) => {
-      if (el.id === bin.id) {
-        this.updatedDate = getCurrentDateTime()
-        return bin
-      } else {
-        return el
-      }
-    })
+    const index = this.bins.findIndex(el => el.id === bin.id)
+    this.bins.splice(index, 1, bin)
     this.updatedDate = getCurrentDateTime()
     return bin.id
   }

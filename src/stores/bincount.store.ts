@@ -21,6 +21,8 @@ export default class BinCountStore {
 
     // Bind methods to "this" in current context
     this.init = this.init.bind(this)
+    this.saveActiveBin = this.saveActiveBin.bind(this)
+    this.deleteActiveBin = this.deleteActiveBin.bind(this)
     this.createNewActiveSession = this.createNewActiveSession.bind(this)
     this.createNewActiveBin = this.createNewActiveBin.bind(this)
     this.loadNewActiveSession = this.loadNewActiveSession.bind(this)
@@ -75,6 +77,18 @@ export default class BinCountStore {
   loadNewActiveBin(id: number) {
     const bin = this.activeSession.getBin(id)
     this.activeBin = bin
+  }
+
+  @action
+  saveActiveBin() {
+    this.activeSession.updateBin(this.activeBin)
+    this.sessionManager.saveSession(this.activeSession)
+  }
+
+  @action
+  deleteActiveBin() {
+    this.activeSession.deleteBin(this.activeBin.id)
+    this.sessionManager.saveSession(this.activeSession)
   }
 
   @action

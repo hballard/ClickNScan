@@ -17,6 +17,7 @@ import { IStores } from '../stores'
 import { NewProductPicker } from '../model/bincount.model'
 import FormPicker from '../components/formpicker.component'
 import theme from '../config/theme.config'
+import DynamicIcon from '../components/dynamicicon.component';
 
 interface IScanFormProps {
   navigation: NavigationScreenProp<{}>
@@ -109,25 +110,29 @@ export default class ScanForm extends React.Component<IScanFormProps, {}> {
               </View>
               <View style={styles.buttonContainer}>
                 <View style={styles.iconContainer}>
-                  <Icon
+                  <DynamicIcon
                     name="delete"
                     type="material"
                     size={40}
-                    color={
+                    onPress={this.props.stores.binCount.deleteActiveBin}
+                    color={theme.colors.darkAccent}
+                    disabled={
                       activeBin.id === activeSession.bins.slice(-1)[0].id
-                        ? theme.colors.secondary
-                        : theme.colors.darkAccent
-                    }
+                        ? true
+                        : false
+                      }
                   />
-                  <Icon
+                  <DynamicIcon
                     name="save"
                     type="material"
                     size={40}
-                    color={
+                    onPress={this.props.stores.binCount.saveActiveBin}
+                    color={theme.colors.darkAccent}
+                    disabled={
                       activeBin.id === activeSession.bins.slice(-1)[0].id
-                        ? theme.colors.secondary
-                        : theme.colors.darkAccent
-                    }
+                        ? true
+                        : false
+                      }
                   />
                   <Icon
                     name="barcode"
