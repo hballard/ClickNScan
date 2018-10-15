@@ -9,7 +9,7 @@ export default class App extends React.Component {
   render() {
     return (
       <Provider stores={stores}>
-        <AppNavigator />
+        <AppNavigator screenProps={stores} />
       </Provider>
     )
   }

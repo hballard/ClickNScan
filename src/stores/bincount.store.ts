@@ -1,4 +1,6 @@
 import { observable, action } from 'mobx'
+import Share from 'react-native-share'
+import { encode as btoa } from 'base-64'
 
 import SessionManager, {
   IBin,
@@ -22,6 +24,8 @@ export default class BinCountStore {
     // Bind methods to "this" in current context
     this.init = this.init.bind(this)
     this.saveActiveBin = this.saveActiveBin.bind(this)
+    this.shareSession = this.shareSession.bind(this)
+    this.emailActiveSession = this.emailActiveSession.bind(this)
     this.deleteActiveBin = this.deleteActiveBin.bind(this)
     this.createNewActiveSession = this.createNewActiveSession.bind(this)
     this.createNewActiveBin = this.createNewActiveBin.bind(this)
@@ -49,7 +53,6 @@ export default class BinCountStore {
     this.activeSession = this.sessionManager.newSession()
     this.sessionManager.saveSession(this.activeSession)
     this.activeBin = this.activeSession.createNewBin()
-    console.log(this) // Delete this line
   }
 
   @action
@@ -57,10 +60,59 @@ export default class BinCountStore {
     try {
       const result = await this.sessionManager.loadSession(id)
       if (result) {
-        console.log(result) // Delete this line
         this.activeSession = result
         this.activeBin = this.activeSession.createNewBin()
       }
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  @action
+  async renameSession(id: number, name: string) {
+    const session = await this.sessionManager.loadSession(id)
+    if (session) {
+      session.name = name
+      this.sessionManager.saveSession(session)
+    }
+  }
+
+  @action
+  async deleteSession(id: number) {
+    await this.sessionManager.deleteSession(id)
+  }
+
+  async shareSession(id: number) {
+    const session = await this.sessionManager.loadSession(id)
+    let url
+    if (session) {
+      url = `data:text/csv;base64,${btoa(session.binsToCsv())}`
+    } else {
+      url = `data:text/csv;base64,${btoa('File not found,\n')}}`
+    }
+    try {
+      const response = await Share.open({ url, type: 'text/csv', title: 'Share via' })
+      console.log(response)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  async emailActiveSession() {
+    const session = await this.sessionManager.loadSession(this.activeSession.id)
+    let url
+    if (session) {
+      url = `data:text/csv;base64,${btoa(session.binsToCsv())}`
+    } else {
+      url = `data:text/csv;base64,${btoa('File not found,\n')}}`
+    }
+    try {
+      const response = await Share.shareSingle({
+        url,
+        type: 'text/csv',
+        social: Share.Social.EMAIL
+      })
+      console.log(response)
     } catch (e) {
       console.log(e)
     }
@@ -89,20 +141,6 @@ export default class BinCountStore {
   deleteActiveBin() {
     this.activeSession.deleteBin(this.activeBin.id)
     this.sessionManager.saveSession(this.activeSession)
-  }
-
-  @action
-  async renameSession(id: number, name: string) {
-    const session = await this.sessionManager.loadSession(id)
-    if (session) {
-      session.name = name
-      this.sessionManager.saveSession(session)
-    }
-  }
-
-  @action
-  async deleteSession(id: number) {
-    await this.sessionManager.deleteSession(id)
   }
 
   @action

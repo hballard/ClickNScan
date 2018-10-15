@@ -71,7 +71,7 @@ export default createStackNavigator(
     },
     Form: {
       screen: FormNavigator,
-      navigationOptions: () => {
+      navigationOptions: (props: NavigationScreenProps) => {
         return {
           headerTitle: (headerProps: any) => {
             return (
@@ -89,6 +89,12 @@ export default createStackNavigator(
               color={theme.colors.accent}
               size={35}
               containerStyle={{ marginRight: 10 }}
+              underlayColor={theme.colors.primary}
+              onPress={
+                props.screenProps
+                  ? props.screenProps.binCount.emailActiveSession
+                  : null
+              }
             />
           ),
           headerTitleStyle: {

@@ -1,4 +1,5 @@
 import { AsyncStorage } from 'react-native'
+
 import { getCurrentDateTime } from '../util/functions.util'
 
 export enum NewProductPicker {
@@ -118,8 +119,23 @@ export class Session {
     }
   }
 
-  toCsv(): string {
-    return "I'm a CSV file"
+  binsToCsv() {
+    if (this.bins.length !== 0) {
+      const headers = Object.keys(this.bins[0])
+        .slice(0, -2)
+        .join()
+      const data = this.bins
+        .map((obj: IBin) =>
+          Object.keys(obj)
+            .map((key: string) => obj[key])
+            .slice(0, -2)
+            .join()
+        )
+        .join('\n')
+      return `${headers}\n${data}`
+    } else {
+      return 'There is no data. Please scan some inventory.\n'
+    }
   }
 }
 

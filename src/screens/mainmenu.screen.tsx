@@ -28,7 +28,8 @@ class MainMenu extends React.Component<IMainMenuProps> {
       createNewActiveSession,
       loadNewActiveSession,
       deleteSession,
-      renameSession
+      renameSession,
+      shareSession
     } = this.props.stores.binCount
     const { sessions } = this.props.stores.binCount.sessionManager
     return (
@@ -65,6 +66,7 @@ class MainMenu extends React.Component<IMainMenuProps> {
                       await renameSession(id, text)
                       this.forceUpdate()
                     }}
+                    shareCallback={shareSession}
                     onPress={async (id: number) => {
                       await loadNewActiveSession(id)
                       navigate('Form')

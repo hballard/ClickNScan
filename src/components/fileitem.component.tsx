@@ -22,12 +22,14 @@ interface IFileItemProps {
   onPress?: (id: number) => void
   renameCallback?: (id: number, name: string) => void
   deleteCallback?: (id: number) => void
+  shareCallback?: (id: number) => void
 }
 
 interface IFileItemState {
   mainModalVisible: boolean
   renameModalVisible: boolean
   deleteModalVisible: boolean
+  shareModalVisible: boolean
   sessionName: string
 }
 
@@ -40,6 +42,7 @@ export default class FileItem extends React.Component<
     mainModalVisible: false,
     renameModalVisible: false,
     deleteModalVisible: false,
+    shareModalVisible: false,
     sessionName: this.props.name || ''
   }
 
@@ -48,6 +51,7 @@ export default class FileItem extends React.Component<
 
     this.toggleMainModal = this.toggleMainModal.bind(this)
     this.toggleDeleteModal = this.toggleDeleteModal.bind(this)
+    this.toggleShareModal = this.toggleShareModal.bind(this)
     this.toggleRenameModal = this.toggleRenameModal.bind(this)
     this.updateName = this.updateName.bind(this)
   }
@@ -62,6 +66,10 @@ export default class FileItem extends React.Component<
 
   private toggleDeleteModal() {
     this.setState({ deleteModalVisible: !this.state.deleteModalVisible })
+  }
+
+  private toggleShareModal() {
+    this.setState({ shareModalVisible: !this.state.shareModalVisible })
   }
 
   private updateName(text: string) {
@@ -120,6 +128,12 @@ export default class FileItem extends React.Component<
               title="Share"
               titleStyle={{ color: theme.colors.darkAccent }}
               hideChevron
+              onPress={() => {
+                if (this.props.shareCallback) {
+                  this.props.shareCallback(this.props.id)
+                  this.toggleMainModal()
+                }
+              }}
             />
             <ListItem
               leftIcon={{
