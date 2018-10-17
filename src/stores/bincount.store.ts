@@ -70,10 +70,14 @@ export default class BinCountStore {
 
   @action
   async renameSession(id: number, name: string) {
-    const session = await this.sessionManager.loadSession(id)
-    if (session) {
-      session.name = name
-      this.sessionManager.saveSession(session)
+    try {
+      const session = await this.sessionManager.loadSession(id)
+      if (session) {
+        session.name = name
+        this.sessionManager.saveSession(session)
+      }
+    } catch (e) {
+      console.log(e)
     }
   }
 
@@ -91,7 +95,11 @@ export default class BinCountStore {
       url = `data:text/csv;base64,${btoa('File not found,\n')}}`
     }
     try {
-      const response = await Share.open({ url, type: 'text/csv', title: 'Share via' })
+      const response = await Share.open({
+        url,
+        type: 'text/csv',
+        title: 'Share via'
+      })
       console.log(response)
     } catch (e) {
       console.log(e)
