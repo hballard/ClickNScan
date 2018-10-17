@@ -12,15 +12,15 @@ import { NewProductPicker } from '../model/bincount.model'
 import PartialModal from './partialmodal.component'
 
 interface IDropdownItems {
-  label: NewProductPicker.No | NewProductPicker.Yes
-  value: NewProductPicker.No | NewProductPicker.Yes
+  label: NewProductPicker
+  value: NewProductPicker
 }
 
 interface IFormPickerProps {
   items: IDropdownItems[]
   stores: IStores
-  value: NewProductPicker.No | NewProductPicker.Yes
-  onSelect: (param: NewProductPicker.No | NewProductPicker.Yes) => void
+  value: NewProductPicker
+  onSelect: (param: NewProductPicker) => void
 }
 
 interface IFormPickerState {

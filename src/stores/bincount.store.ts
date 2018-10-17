@@ -164,7 +164,7 @@ export default class BinCountStore {
   }
 
   @action
-  setNewProduct(text: NewProductPicker.No | NewProductPicker.Yes) {
+  setNewProduct(text: NewProductPicker) {
     this.activeBin.newProduct = text
   }
 }
