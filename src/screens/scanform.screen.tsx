@@ -14,7 +14,7 @@ import {
 import { inject, observer } from 'mobx-react'
 
 import { IStores } from '../stores'
-import { NewProductPicker } from '../model/bincount.model'
+import { NewProductPicker } from '../models/bincount.model'
 import FormPicker from '../components/formpicker.component'
 import theme from '../config/theme.config'
 import DisabledIcon from '../components/disabledicon.component'

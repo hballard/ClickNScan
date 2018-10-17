@@ -6,7 +6,7 @@ import SessionManager, {
   IBin,
   Session,
   NewProductPicker
-} from '../model/bincount.model'
+} from '../models/bincount.model'
 
 export default class BinCountStore {
   @observable
@@ -23,20 +23,20 @@ export default class BinCountStore {
 
     // Bind methods to "this" in current context
     this.init = this.init.bind(this)
-    this.saveActiveBin = this.saveActiveBin.bind(this)
-    this.shareSession = this.shareSession.bind(this)
-    this.emailActiveSession = this.emailActiveSession.bind(this)
-    this.deleteActiveBin = this.deleteActiveBin.bind(this)
-    this.createNewActiveSession = this.createNewActiveSession.bind(this)
     this.createNewActiveBin = this.createNewActiveBin.bind(this)
+    this.createNewActiveSession = this.createNewActiveSession.bind(this)
+    this.deleteActiveBin = this.deleteActiveBin.bind(this)
+    this.deleteSession = this.deleteSession.bind(this)
+    this.emailActiveSession = this.emailActiveSession.bind(this)
     this.loadNewActiveSession = this.loadNewActiveSession.bind(this)
     this.renameSession = this.renameSession.bind(this)
-    this.deleteSession = this.deleteSession.bind(this)
-    this.setBarcode = this.setBarcode.bind(this)
-    this.setCountQty = this.setCountQty.bind(this)
+    this.saveActiveBin = this.saveActiveBin.bind(this)
     this.setAdditionalQty = this.setAdditionalQty.bind(this)
+    this.setBarcode = this.setBarcode.bind(this)
     this.setComments = this.setComments.bind(this)
+    this.setCountQty = this.setCountQty.bind(this)
     this.setNewProduct = this.setNewProduct.bind(this)
+    this.shareSession = this.shareSession.bind(this)
   }
 
   async init() {

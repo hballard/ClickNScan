@@ -10,7 +10,7 @@ import { observer, inject } from 'mobx-react'
 import theme from '../config/theme.config'
 import ListCard from '../components/listcard.component'
 import { IStores } from '../stores'
-import { IBin } from '../model/bincount.model'
+import { IBin } from '../models/bincount.model'
 
 interface IGridViewProps {
   navigation: NavigationScreenProp<{}>

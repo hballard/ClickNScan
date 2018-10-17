@@ -8,7 +8,7 @@ import { FormInput } from 'react-native-elements'
 import { observer } from 'mobx-react'
 
 import { IStores } from '../stores'
-import { NewProductPicker } from '../model/bincount.model'
+import { NewProductPicker } from '../models/bincount.model'
 import PartialModal from './partialmodal.component'
 
 interface IDropdownItems {

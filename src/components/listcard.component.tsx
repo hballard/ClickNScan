@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { observer } from 'mobx-react'
 import { Card } from 'react-native-elements'
 
-import { IBin } from '../model/bincount.model'
+import { IBin } from '../models/bincount.model'
 
 interface IListCardProps {
   binData: IBin
