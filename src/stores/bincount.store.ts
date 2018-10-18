@@ -98,7 +98,8 @@ export default class BinCountStore {
       const response = await Share.open({
         url,
         type: 'text/csv',
-        title: 'Share via'
+        title: 'Share via',
+        message: ''
       })
       console.log(response)
     } catch (e) {
@@ -118,7 +119,8 @@ export default class BinCountStore {
       const response = await Share.shareSingle({
         url,
         type: 'text/csv',
-        social: Share.Social.EMAIL
+        social: 'email',
+        message: ''
       })
       console.log(response)
     } catch (e) {

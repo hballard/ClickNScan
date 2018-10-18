@@ -36,10 +36,10 @@ const FormNavigator = createBottomTabNavigator(
         let iconName
         if (routeName === 'FormInput') {
           iconName = 'assignment'
-        } else if (routeName === 'FormView') {
+        } else {
           iconName = 'grid-on'
         }
-        return <Icon name={iconName} size={25} color={tintColor} />
+        return <Icon name={iconName} size={25} color={tintColor as string} />
       }
     })
   }

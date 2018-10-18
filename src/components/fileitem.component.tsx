@@ -161,11 +161,7 @@ export default class FileItem extends React.Component<
               Do you want to delete this file?
             </FormLabel>
             <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'flex-end',
-                marginTop: 30
-              }}
+              style={styles.deleteButtonContainer}
             >
               <Button
                 color={theme.colors.darkAccent}
@@ -202,13 +198,7 @@ export default class FileItem extends React.Component<
               value={this.state.sessionName}
               onChangeText={this.updateName}
             />
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'flex-end',
-                marginTop: 30
-              }}
-            >
+            <View style={styles.renameButtonContainer}>
               <Button
                 color={theme.colors.darkAccent}
                 backgroundColor={theme.colors.accent}
@@ -259,5 +249,15 @@ const styles = StyleSheet.create({
     marginTop: 3,
     borderTopWidth: 0,
     paddingLeft: 5
-  }
+  },
+  renameButtonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginTop: 30
+  },
+  deleteButtonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginTop: 30
+  },
 })
