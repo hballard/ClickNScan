@@ -197,6 +197,8 @@ export default class FileItem extends React.Component<
               placeholder="Enter new name"
               value={this.state.sessionName}
               onChangeText={this.updateName}
+              containerStyle={{flexDirection: 'row'}}
+              inputStyle={{flex: 1}}
             />
             <View style={styles.renameButtonContainer}>
               <Button

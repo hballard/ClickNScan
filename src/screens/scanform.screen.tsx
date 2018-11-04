@@ -52,7 +52,8 @@ export default class ScanForm extends React.Component<IScanFormProps> {
                     placeholder="Enter barcode or scan"
                     value={activeBin.barcode}
                     onChangeText={this.props.stores.binCount.setBarcode}
-                    containerStyle={{ flex: 3 }}
+                    containerStyle={{ flex: 3, flexDirection: 'row' }}
+                    inputStyle={{flex: 1}}
                   />
                   <Icon
                     name="barcode-scan"
@@ -106,6 +107,8 @@ export default class ScanForm extends React.Component<IScanFormProps> {
                   placeholder="Enter Comments"
                   value={activeBin.comments}
                   onChangeText={this.props.stores.binCount.setComments}
+                  containerStyle={{flexDirection: 'row'}}
+                  inputStyle={{flex: 1}}
                 />
               </View>
               <View style={styles.buttonContainer}>
