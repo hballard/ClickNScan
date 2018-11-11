@@ -79,7 +79,9 @@ export default class FileItem extends React.Component<
   render() {
     return (
       <View key={this.props.id} style={styles.container}>
-        <Text style={styles.titleText}>{this.props.name}</Text>
+        <Text numberOfLines={1} ellipsizeMode="middle" style={styles.titleText}>
+          {this.props.name}
+        </Text>
         <Icon
           underlayColor={theme.colors.secondary}
           name="file-text"
@@ -160,9 +162,7 @@ export default class FileItem extends React.Component<
             <FormLabel labelStyle={{ color: theme.colors.darkAccent }}>
               Do you want to delete this file?
             </FormLabel>
-            <View
-              style={styles.deleteButtonContainer}
-            >
+            <View style={styles.deleteButtonContainer}>
               <Button
                 color={theme.colors.darkAccent}
                 backgroundColor={theme.colors.accent}
@@ -197,8 +197,8 @@ export default class FileItem extends React.Component<
               placeholder="Enter new name"
               value={this.state.sessionName}
               onChangeText={this.updateName}
-              containerStyle={{flexDirection: 'row'}}
-              inputStyle={{flex: 1}}
+              containerStyle={{ flexDirection: 'row' }}
+              inputStyle={{ flex: 1 }}
             />
             <View style={styles.renameButtonContainer}>
               <Button
@@ -231,7 +231,6 @@ export default class FileItem extends React.Component<
 
 const styles = StyleSheet.create({
   container: {
-    fontSize: 25,
     alignItems: 'center',
     margin: 20
   },
@@ -240,6 +239,8 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start'
   },
   titleText: {
+    textAlign: 'center',
+    width: 78,
     color: theme.colors.darkAccent,
     marginBottom: 10
   },
@@ -261,5 +262,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     marginTop: 30
-  },
+  }
 })

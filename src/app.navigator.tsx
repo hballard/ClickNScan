@@ -4,7 +4,7 @@ import {
   createBottomTabNavigator,
   NavigationScreenProps
 } from 'react-navigation'
-import { Image, View } from 'react-native'
+import { Image, View, Text } from 'react-native'
 import { Icon } from 'react-native-elements'
 
 import ScanForm from './screens/scanform.screen'
@@ -72,14 +72,25 @@ export default createStackNavigator(
     Form: {
       screen: FormNavigator,
       navigationOptions: (props: NavigationScreenProps) => {
+        console.log()
         return {
           headerTitle: (headerProps: any) => {
             return (
               <View style={headerProps.style}>
-                <Image
-                  style={{ width: 175, height: 28.6 }}
-                  source={require('./assets/images/clicknscan-logo.png')}
-                />
+                <Text
+                  numberOfLines={1}
+                  ellipsizeMode="middle"
+                  style={{
+                    color: theme.colors.accent,
+                    textAlign: 'center',
+                    fontSize: 22,
+                    width: 225
+                  }}
+                >
+                  {props.screenProps
+                    ? props.screenProps.binCount.activeSession.name
+                    : null}
+                </Text>
               </View>
             )
           },
