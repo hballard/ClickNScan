@@ -8,6 +8,7 @@ import theme from '../config/theme.config'
 
 interface IListCardProps {
   binData: IBin
+  binIndex: number
   borderStyle?: {}
   onPress: (id: number) => void
 }
@@ -22,40 +23,33 @@ export default class ListCard extends React.Component<IListCardProps> {
           onPress={() => this.props.onPress(this.props.binData.id)}
         >
           <Card containerStyle={this.props.borderStyle}>
-            <View style={styles.cardContent}>
+            <View style={styles.topCardContent}>
+              <View style={styles.barcodeContentContainer}>
+                <Text style={styles.barcodeContentLabel}>PRODUCT ID</Text>
+                <Text style={styles.barcodeContentText}>
+                  {this.props.binData.barcode}
+                </Text>
+              </View>
+              <View style={styles.binIndexContainer}>
+                <Text style={styles.binIndexText}>{this.props.binIndex}</Text>
+              </View>
+            </View>
+            <View style={styles.middleCardContent}>
               <View style={styles.leftCardContent}>
-                <View style={styles.barcodeContentContainer}>
-                  <Text style={styles.barcodeContentLabel}>PRODUCT ID</Text>
-                  <Text style={styles.barcodeContentText}>
-                    {this.props.binData.barcode}
-                  </Text>
-                </View>
                 <View style={styles.newProductContentContainer}>
-                  <Text style={styles.newProductContentLabel}>
-                    NEW PRODUCT
-                  </Text>
+                  <Text style={styles.newProductContentLabel}>NEW PRODUCT</Text>
                   <Text style={styles.newProductContentText}>
                     {this.props.binData.newProduct}
                   </Text>
                 </View>
-                <View style={styles.commentsContentContainer}>
-                  <Text style={styles.commentsContentLabel}>COMMENTS</Text>
-                  <Text style={styles.commentsContentText}>
-                    {this.props.binData.comments}
-                  </Text>
-                </View>
               </View>
               <View style={styles.rightCardContent}>
-                <View style={styles.binContentContainer}>
-                  <Text style={styles.binContentLabel}>BIN</Text>
-                  <Text style={styles.binContentText}>
-                    {this.props.binData.id}
-                  </Text>
-                </View>
                 <View style={styles.countQtyContentContainer}>
                   <Text style={styles.countQtyContentLabel}>COUNT QTY</Text>
                   <Text style={styles.countQtyContentText}>
-                    {this.props.binData.countQty ? this.props.binData.countQty : '0'}
+                    {this.props.binData.countQty
+                      ? this.props.binData.countQty
+                      : '0'}
                   </Text>
                 </View>
                 <View style={styles.addtlQtyContentContainer}>
@@ -63,9 +57,21 @@ export default class ListCard extends React.Component<IListCardProps> {
                     ADDITIONAL QTY
                   </Text>
                   <Text style={styles.addtlQtyContentText}>
-                    {this.props.binData.additionalQty ? this.props.binData.additionalQty : '0'}
+                    {this.props.binData.additionalQty
+                      ? this.props.binData.additionalQty
+                      : '0'}
                   </Text>
                 </View>
+              </View>
+            </View>
+            <View style={styles.bottomCardContent}>
+                <View style={styles.commentsContentContainer}>
+                  <Text style={styles.commentsContentLabel}>COMMENTS</Text>
+                  <Text style={styles.commentsContentText}>
+                    {this.props.binData.comments}
+                  </Text>
+                </View>
+              <View style={styles.imageContainer}>
                 <Image
                   style={{ height: 60, width: 75 }}
                   resizeMode="contain"
@@ -81,7 +87,15 @@ export default class ListCard extends React.Component<IListCardProps> {
 }
 
 const styles = StyleSheet.create({
-  cardContent: {
+  topCardContent: {
+    flex: 1,
+    flexDirection: 'row'
+  },
+  middleCardContent: {
+    flex: 1,
+    flexDirection: 'row'
+  },
+  bottomCardContent: {
     flex: 1,
     flexDirection: 'row'
   },
@@ -104,28 +118,15 @@ const styles = StyleSheet.create({
     color: theme.colors.darkAccent
   },
   newProductContentText: {},
-  commentsContentContainer: {
-    paddingBottom: 10
-  },
-  commentsContentLabel: {
-    color: theme.colors.darkAccent
-  },
-  commentsContentText: {},
   rightCardContent: {
     flex: 1,
     alignItems: 'flex-end'
   },
-  binContentContainer: {
-    flexDirection: 'row',
+  binIndexContainer: {
+    flex: 1,
     paddingBottom: 10,
-    alignItems: 'center'
   },
-  binContentLabel: {
-    color: theme.colors.darkAccent,
-    flex: 3,
-    textAlign: 'right'
-  },
-  binContentText: {
+  binIndexText: {
     flex: 1,
     fontSize: 40,
     color: theme.colors.primary,
@@ -161,5 +162,17 @@ const styles = StyleSheet.create({
   },
   textLabelColor: {
     color: theme.colors.darkAccent
+  },
+  commentsContentContainer: {
+    flex: 2,
+    paddingBottom: 10
+  },
+  commentsContentLabel: {
+    color: theme.colors.darkAccent
+  },
+  commentsContentText: {},
+  imageContainer: {
+    flex: 1,
+    alignItems: 'flex-end'
   }
 })

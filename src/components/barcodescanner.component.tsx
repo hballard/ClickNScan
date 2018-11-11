@@ -10,26 +10,13 @@ import { RNCamera } from 'react-native-camera'
 
 import theme from '../config/theme.config'
 
-const PendingView = () => (
-  <View
-    style={{
-      flex: 1,
-      backgroundColor: 'lightgreen',
-      justifyContent: 'center',
-      alignItems: 'center'
-    }}
-  >
-    <Text>Opening Scanner</Text>
-  </View>
-)
-
 interface IBarcodeScannerProps {
   toggleBarcodeScanner: () => void
   setBarcodeText: (text: string) => void
   enableVibrationOnScan: boolean
 }
 
-export default class BarcdeScanner extends Component<IBarcodeScannerProps> {
+export default class BarcodeScanner extends Component<IBarcodeScannerProps> {
   constructor(props: IBarcodeScannerProps) {
     super(props)
 
@@ -59,7 +46,18 @@ export default class BarcdeScanner extends Component<IBarcodeScannerProps> {
         >
           {({ status }) => {
             if (status !== 'READY') {
-              return <PendingView />
+              return (
+                <View
+                  style={{
+                    flex: 1,
+                    backgroundColor: 'lightgreen',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                  }}
+                >
+                  <Text>Opening Scanner</Text>
+                </View>
+              )
             }
             return (
               <View
