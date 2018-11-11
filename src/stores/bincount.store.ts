@@ -41,7 +41,7 @@ export default class BinCountStore {
 
   async init() {
     try {
-      await this.sessionManager.deleteAllSessions() // Delete this line
+      // await this.sessionManager.deleteAllSessions() // Delete this line
       await this.sessionManager.init()
     } catch (e) {
       console.log(e)
