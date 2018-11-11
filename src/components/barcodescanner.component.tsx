@@ -1,5 +1,11 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  Vibration
+} from 'react-native'
 import { RNCamera } from 'react-native-camera'
 
 import theme from '../config/theme.config'
@@ -20,6 +26,7 @@ const PendingView = () => (
 interface IBarcodeScannerProps {
   toggleBarcodeScanner: () => void
   setBarcodeText: (text: string) => void
+  enableVibrationOnScan: boolean
 }
 
 export default class BarcdeScanner extends Component<IBarcodeScannerProps> {
@@ -30,6 +37,9 @@ export default class BarcdeScanner extends Component<IBarcodeScannerProps> {
   }
 
   onBarCodeRead(event: any) {
+    if (this.props.enableVibrationOnScan) {
+      Vibration.vibrate(400, false)
+    }
     this.props.setBarcodeText(event.data)
     this.props.toggleBarcodeScanner()
   }

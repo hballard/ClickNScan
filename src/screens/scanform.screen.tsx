@@ -28,6 +28,7 @@ interface IScanFormProps {
 interface IScanFormState {
   showBarcodeScanner: boolean
   enableAutoBarcodeScanner: boolean
+  enableVibrationOnScan: boolean
 }
 
 @inject('stores')
@@ -42,14 +43,18 @@ export default class ScanForm extends React.Component<
 
   state: IScanFormState = {
     showBarcodeScanner: false,
-    enableAutoBarcodeScanner: false
+    enableAutoBarcodeScanner: false,
+    enableVibrationOnScan: false
   }
 
   constructor(props: IScanFormProps) {
     super(props)
 
     this.toggleBarcodeScanner = this.toggleBarcodeScanner.bind(this)
-    this.toggleEnableAutoBarcodeScanner = this.toggleEnableAutoBarcodeScanner.bind(this)
+    this.toggleEnableAutoBarcodeScanner = this.toggleEnableAutoBarcodeScanner.bind(
+      this
+    )
+    this.toggleVibrationOnScan = this.toggleVibrationOnScan.bind(this)
   }
 
   private toggleBarcodeScanner() {
@@ -57,7 +62,13 @@ export default class ScanForm extends React.Component<
   }
 
   private toggleEnableAutoBarcodeScanner() {
-    this.setState({ enableAutoBarcodeScanner: !this.state.enableAutoBarcodeScanner })
+    this.setState({
+      enableAutoBarcodeScanner: !this.state.enableAutoBarcodeScanner
+    })
+  }
+
+  private toggleVibrationOnScan() {
+    this.setState({ enableVibrationOnScan: !this.state.enableVibrationOnScan })
   }
 
   render() {
@@ -66,6 +77,7 @@ export default class ScanForm extends React.Component<
         <BarcodeScanner
           toggleBarcodeScanner={this.toggleBarcodeScanner}
           setBarcodeText={this.props.stores.binCount.setBarcode}
+          enableVibrationOnScan={this.state.enableVibrationOnScan}
         />
       )
     } else {
@@ -188,6 +200,18 @@ export default class ScanForm extends React.Component<
                           : theme.colors.darkAccent
                       }
                       onPress={this.toggleEnableAutoBarcodeScanner}
+                    />
+                    <Icon
+                      name="vibrate"
+                      type="material-community"
+                      size={40}
+                      containerStyle={{ marginLeft: 10, marginTop: 41 }}
+                      color={
+                        this.state.enableVibrationOnScan
+                          ? theme.colors.primary
+                          : theme.colors.darkAccent
+                      }
+                      onPress={this.toggleVibrationOnScan}
                     />
                   </View>
                   <Icon
