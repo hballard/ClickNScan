@@ -42,7 +42,7 @@ export default class PartialModal extends React.Component<IPartialModalProps> {
             {this.props.children}
           </View>
           <TouchableWithoutFeedback onPress={this.props.toggleModal}>
-            <View style={this.props.floating ? { flex: 1 } : {}} />
+            <View style={this.props.floating ? { flex: 1.2 } : {}} />
           </TouchableWithoutFeedback>
         </View>
       </Modal>

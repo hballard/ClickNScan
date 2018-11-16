@@ -1,6 +1,7 @@
 import { observable, action } from 'mobx'
 import Share from 'react-native-share'
-import { encode as btoa } from 'base-64'
+import RNFetchBlob from 'rn-fetch-blob'
+import Mailer from 'react-native-mail'
 
 import SessionManager, {
   IBin,
@@ -88,20 +89,18 @@ export default class BinCountStore {
 
   async shareSession(id: number) {
     const session = await this.sessionManager.loadSession(id)
-    let url
+    let pathToWrite
     if (session) {
-      url = `data:text/csv;base64,${btoa(session.binsToCsv())}`
-    } else {
-      url = `data:text/csv;base64,${btoa('File not found,\n')}}`
+      pathToWrite = `${RNFetchBlob.fs.dirs.CacheDir}/${session.name}.csv`
+      const data = session.bins.length > 0 ? session.binsToCsv() : 'There is no data'
+      await RNFetchBlob.fs.writeFile(pathToWrite, data, 'utf8')
     }
     try {
-      const response = await Share.open({
-        url,
-        // type: 'text/csv',
+      await Share.open({
+        url: `file://${pathToWrite}`,
         title: 'Share via',
-        message: ''
       })
-      console.log(response)
+      await RNFetchBlob.fs.unlink(pathToWrite)
     } catch (e) {
       console.log(e)
     }
@@ -109,23 +108,26 @@ export default class BinCountStore {
 
   async emailActiveSession() {
     const session = await this.sessionManager.loadSession(this.activeSession.id)
-    let url
     if (session) {
-      url = `data:text/csv;base64,${btoa(session.binsToCsv())}`
-    } else {
-      url = `data:text/csv;base64,${btoa('File not found,\n')}}`
+      const pathToWrite = `${RNFetchBlob.fs.dirs.CacheDir}/${session.name}.csv`
+      const data = session.bins.length > 0 ? session.binsToCsv() : 'There is no data'
+      await RNFetchBlob.fs.writeFile(pathToWrite, data, 'utf8')
+        Mailer.mail({
+        subject: 'Inventory File',
+        body: 'See attached inventory file...\n\n',
+        isHTML: true,
+        attachment: {
+          path: `${pathToWrite}`,
+          type: 'csv',
+        }
+      }, () => RNFetchBlob.fs.unlink(pathToWrite))
     }
-    try {
-      const response = await Share.shareSingle({
-        url,
-        // type: 'text/csv',
-        social: 'email',
-        message: ''
-      })
-      console.log(response)
-    } catch (e) {
-      console.log(e)
-    }
+      // const response = await Share.shareSingle({
+        // url: `file://${pathToWrite}`,
+        // social: 'email',
+        // title: `${session ? session.name : null}`,
+        // message: 'See attached inventory file...\n\n'
+      // })
   }
 
   @action
