@@ -92,13 +92,14 @@ export default class BinCountStore {
     let pathToWrite
     if (session) {
       pathToWrite = `${RNFetchBlob.fs.dirs.CacheDir}/${session.name}.csv`
-      const data = session.bins.length > 0 ? session.binsToCsv() : 'There is no data'
+      const data =
+        session.bins.length > 0 ? session.binsToCsv() : 'There is no data'
       await RNFetchBlob.fs.writeFile(pathToWrite, data, 'utf8')
     }
     try {
       await Share.open({
         url: `file://${pathToWrite}`,
-        title: 'Share via',
+        title: 'Share via'
       })
       await RNFetchBlob.fs.unlink(pathToWrite)
     } catch (e) {
@@ -110,24 +111,29 @@ export default class BinCountStore {
     const session = await this.sessionManager.loadSession(this.activeSession.id)
     if (session) {
       const pathToWrite = `${RNFetchBlob.fs.dirs.CacheDir}/${session.name}.csv`
-      const data = session.bins.length > 0 ? session.binsToCsv() : 'There is no data'
+      const data =
+        session.bins.length > 0 ? session.binsToCsv() : 'There is no data'
       await RNFetchBlob.fs.writeFile(pathToWrite, data, 'utf8')
-        Mailer.mail({
-        subject: 'Inventory File',
-        body: 'See attached inventory file...\n\n',
-        isHTML: true,
-        attachment: {
-          path: `${pathToWrite}`,
-          type: 'csv',
-        }
-      }, () => RNFetchBlob.fs.unlink(pathToWrite))
+      Mailer.mail(
+        {
+          subject: 'Inventory File',
+          body: 'See attached inventory file...\n\n',
+          isHTML: true,
+          attachment: {
+            path: `${pathToWrite}`,
+            type: 'csv'
+          }
+        },
+        () => RNFetchBlob.fs.unlink(pathToWrite)
+      )
     }
-      // const response = await Share.shareSingle({
-        // url: `file://${pathToWrite}`,
-        // social: 'email',
-        // title: `${session ? session.name : null}`,
-        // message: 'See attached inventory file...\n\n'
-      // })
+    // TODO: re-implement using "Share.shareSingle" once it is ready
+    // const response = await Share.shareSingle({
+    // url: `file://${pathToWrite}`,
+    // social: 'email',
+    // title: `${session ? session.name : null}`,
+    // message: 'See attached inventory file...\n\n'
+    // })
   }
 
   @action
