@@ -4,7 +4,7 @@ import {
   createBottomTabNavigator,
   NavigationScreenProps
 } from 'react-navigation'
-import { Image, View, Text } from 'react-native'
+import { Image, View } from 'react-native'
 import { Icon } from 'react-native-elements'
 
 import ScanForm from './screens/scanform.screen'
@@ -12,6 +12,7 @@ import SplashScreen from './screens/splash.screen'
 import GridView from './screens/gridview.screen'
 import theme from './config/theme.config'
 import MainMenu from './screens/mainmenu.screen'
+import EditableText from './components/editabletext.component'
 
 const FormNavigator = createBottomTabNavigator(
   {
@@ -77,7 +78,13 @@ export default createStackNavigator(
           headerTitle: (headerProps: any) => {
             return (
               <View style={headerProps.style}>
-                <Text
+                <EditableText
+                  onBlur={(text: string) => {
+                    const id = props.screenProps.binCount.activeSession.id
+                    const renameSession =
+                      props.screenProps.binCount.renameSession
+                    renameSession(id, text)
+                  }}
                   numberOfLines={1}
                   ellipsizeMode="middle"
                   style={{
@@ -90,7 +97,7 @@ export default createStackNavigator(
                   {props.screenProps
                     ? props.screenProps.binCount.activeSession.name
                     : null}
-                </Text>
+                </EditableText>
               </View>
             )
           },
