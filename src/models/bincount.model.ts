@@ -84,7 +84,6 @@ export class Session {
       createdDate,
       updatedDate: createdDate
     }
-    this.bins.push(newBin)
     return newBin
   }
 
@@ -97,7 +96,11 @@ export class Session {
 
   updateBin(bin: IBin) {
     const index = this.bins.findIndex(el => el.id === bin.id)
-    this.bins.splice(index, 1, bin)
+    if (index === -1) {
+      this.bins.push(bin)
+    } else {
+      this.bins.splice(index, 1, bin)
+    }
     this.updatedDate = getCurrentDateTime()
     return bin.id
   }
@@ -122,13 +125,13 @@ export class Session {
   binsToCsv() {
     if (this.bins.length !== 0) {
       const headers = Object.keys(this.bins[0])
-        .slice(0, -2)
+        .slice(1, -2)
         .join()
       const data = this.bins
         .map((obj: IBin) =>
           Object.keys(obj)
             .map((key: string) => obj[key])
-            .slice(0, -2)
+            .slice(1, -2)
             .join()
         )
         .join('\n')

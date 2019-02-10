@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     position: 'absolute',
     bottom: 13,
-    right: Dimensions.get('window').width / 2.63,
+    right: Dimensions.get('window').width / 2 - 47,
     zIndex: 1
   }
 })

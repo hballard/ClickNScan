@@ -94,9 +94,8 @@ export default createStackNavigator(
                     width: 225
                   }}
                 >
-                  {props.screenProps
-                    ? props.screenProps.binCount.activeSession.name
-                    : null}
+                  {props.screenProps &&
+                    props.screenProps.binCount.activeSession.name}
                 </EditableText>
               </View>
             )
@@ -109,9 +108,8 @@ export default createStackNavigator(
               containerStyle={{ marginRight: 10 }}
               underlayColor={theme.colors.primary}
               onPress={
-                props.screenProps
-                  ? props.screenProps.binCount.emailActiveSession
-                  : null
+                props.screenProps &&
+                props.screenProps.binCount.emailActiveSession
               }
             />
           ),
@@ -126,7 +124,7 @@ export default createStackNavigator(
     Splash: SplashScreen
   },
   {
-    initialRouteName: 'Splash',
+    initialRouteName: 'MainMenu',
     navigationOptions: {
       headerStyle: {
         backgroundColor: theme.colors.primary

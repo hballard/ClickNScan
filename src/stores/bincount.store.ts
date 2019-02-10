@@ -107,6 +107,9 @@ export default class BinCountStore {
     }
   }
 
+  // TODO: Add promise to the Mailer.mail and callback step below
+  // - see I can perform unlink step on Android, where the callback does not get
+  // called in case of an error.
   async emailActiveSession() {
     const session = await this.sessionManager.loadSession(this.activeSession.id)
     if (session) {
@@ -144,20 +147,21 @@ export default class BinCountStore {
   }
 
   @action
-  loadNewActiveBin(id: number) {
-    const bin = this.activeSession.getBin(id)
-    this.activeBin = bin
-  }
-
-  @action
   saveActiveBin() {
     this.activeSession.updateBin(this.activeBin)
     this.sessionManager.saveSession(this.activeSession)
   }
 
   @action
+  loadNewActiveBin(id: number) {
+    const bin = this.activeSession.getBin(id)
+    this.activeBin = bin
+  }
+
+  @action
   deleteActiveBin() {
     this.activeSession.deleteBin(this.activeBin.id)
+    this.activeBin = this.activeSession.createNewBin()
     this.sessionManager.saveSession(this.activeSession)
   }
 

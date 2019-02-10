@@ -96,10 +96,10 @@ export default class FileItem extends React.Component<
           }}
           onLongPress={this.toggleMainModal}
         />
-        <Text style={StyleSheet.flatten([styles.footerText, { marginTop: 8 }])}>
+        <Text style={[styles.footerText, { marginTop: 8 }]}>
           {this.props.createdDate ? this.props.createdDate.split(' ')[0] : ''}
         </Text>
-        <Text style={StyleSheet.flatten([styles.footerText, { marginTop: 3 }])}>
+        <Text style={[styles.footerText, { marginTop: 3 }]}>
           {this.props.createdDate ? this.props.createdDate.split(' ')[1] : ''}
         </Text>
         <PartialModal

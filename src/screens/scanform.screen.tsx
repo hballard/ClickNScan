@@ -84,7 +84,6 @@ export default class ScanForm extends React.Component<
       const {
         activeBin,
         createNewActiveBin,
-        activeSession
       } = this.props.stores.binCount
       return (
         <View style={styles.container}>
@@ -175,9 +174,6 @@ export default class ScanForm extends React.Component<
                       size={40}
                       onPress={this.props.stores.binCount.deleteActiveBin}
                       color={theme.colors.darkAccent}
-                      disabled={
-                        activeBin.id === activeSession.bins.slice(-1)[0].id
-                      }
                     />
                     <DisabledIcon
                       name="save"
@@ -185,9 +181,6 @@ export default class ScanForm extends React.Component<
                       size={40}
                       onPress={this.props.stores.binCount.saveActiveBin}
                       color={theme.colors.darkAccent}
-                      disabled={
-                        activeBin.id === activeSession.bins.slice(-1)[0].id
-                      }
                     />
                     <Icon
                       name="barcode"

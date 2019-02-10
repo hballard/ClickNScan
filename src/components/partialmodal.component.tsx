@@ -30,19 +30,15 @@ export default class PartialModal extends React.Component<IPartialModalProps> {
             <View style={styles.touchableChild} />
           </TouchableWithoutFeedback>
           <View
-            style={
-              this.props.floating
-                ? StyleSheet.flatten([
-                    styles.modalForeground,
-                    styles.modalForegroundFloating
-                  ])
-                : styles.modalForeground
-            }
+            style={[
+              styles.modalForeground,
+              this.props.floating && styles.modalForegroundFloating
+            ]}
           >
             {this.props.children}
           </View>
           <TouchableWithoutFeedback onPress={this.props.toggleModal}>
-            <View style={this.props.floating ? { flex: 1.2 } : {}} />
+            <View style={this.props.floating && { flex: 1.2 }} />
           </TouchableWithoutFeedback>
         </View>
       </Modal>

@@ -15,6 +15,11 @@ interface IListCardProps {
 
 @observer
 export default class ListCard extends React.Component<IListCardProps> {
+
+  shouldComponentUpdate(nextProps: IListCardProps) {
+    return this.props.binData !== nextProps.binData
+  }
+
   render() {
     return (
       <View>
