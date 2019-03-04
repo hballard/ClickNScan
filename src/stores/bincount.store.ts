@@ -59,7 +59,7 @@ export default class BinCountStore {
   @action
   async loadNewActiveSession(id: number) {
     try {
-      const result = await this.sessionManager.loadSession(id)
+      const result = await SessionManager.loadSession(id)
       if (result) {
         this.activeSession = result
         this.activeBin = this.activeSession.createNewBin()
@@ -72,7 +72,7 @@ export default class BinCountStore {
   @action
   async renameSession(id: number, name: string) {
     try {
-      const session = await this.sessionManager.loadSession(id)
+      const session = await SessionManager.loadSession(id)
       if (session) {
         session.name = name
         this.sessionManager.saveSession(session)
@@ -111,7 +111,7 @@ export default class BinCountStore {
   // - see I can perform unlink step on Android, where the callback does not get
   // called in case of an error.
   async emailActiveSession() {
-    const session = await this.sessionManager.loadSession(this.activeSession.id)
+    const session = await SessionManager.loadSession(this.activeSession.id)
     if (session) {
       const pathToWrite = `${RNFetchBlob.fs.dirs.CacheDir}/${session.name}.csv`
       const data =
@@ -154,8 +154,7 @@ export default class BinCountStore {
 
   @action
   loadNewActiveBin(id: number) {
-    const bin = this.activeSession.getBin(id)
-    this.activeBin = bin
+    this.activeBin = this.activeSession.getBin(id)
   }
 
   @action

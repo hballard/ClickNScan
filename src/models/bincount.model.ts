@@ -16,6 +16,7 @@ export interface IBin {
   comments: string
   createdDate: string
   updatedDate: string
+  [key: string]: string | number
 }
 
 export interface INewSessionInitializer {
@@ -74,7 +75,7 @@ export class Session {
 
   createNewBin() {
     const createdDate = getCurrentDateTime()
-    const newBin = {
+    return {
       id: this.binCounter++,
       barcode: '',
       countQty: '',
@@ -84,7 +85,6 @@ export class Session {
       createdDate,
       updatedDate: createdDate
     }
-    return newBin
   }
 
   deleteBin(id: number) {
@@ -175,7 +175,7 @@ export default class SessionManager {
     return newSession
   }
 
-  async loadSession(id: number): Promise<Session | void> {
+  static async loadSession(id: number): Promise<Session | void> {
     try {
       const result = await AsyncStorage.getItem(`@Session:${id}`)
       if (result !== null) {
@@ -214,7 +214,7 @@ export default class SessionManager {
     }
   }
 
-  async deleteAllSessions() {
+  static async deleteAllSessions() {
     await AsyncStorage.clear()
   }
 
